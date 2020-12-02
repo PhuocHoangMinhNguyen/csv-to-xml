@@ -20,10 +20,10 @@ class AdminList extends React.Component {
             message: 'Are you sure you want to delete the admin?',
             buttons: [{
                 label: 'Delete',
-                onClick: () => { this.handleYes(id) }
+                onClick: () => this.handleYes(id)
             }, {
                 label: 'Cancel',
-                onClick: () => { alert('Delete Action Canceled') }
+                onClick: () => alert('Delete Action Canceled')
             }]
         });
     };
@@ -32,12 +32,8 @@ class AdminList extends React.Component {
         const admin = {
             id: id
         };
-        fetch('/deleteadmin', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(admin)
-        }).then(response => response.json())
-            .then(resp => { this.setState({ admins: resp }) });
+        axios.post('/deleteadmin', { id: id })
+            .then(res => this.setState({ admins: res.data }));
     };
 
     render() {
