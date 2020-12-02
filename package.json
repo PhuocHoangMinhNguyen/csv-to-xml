@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client && npm start"
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
+    "client:build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -18,8 +21,27 @@
   },
   "homepage": "https://github.com/PhuocHoangMinhNguyen/csv-to-xml#readme",
   "dependencies": {
+    "basic-ftp": "^4.6.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "csvtojson": "^2.0.10",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.1",
+    "fs": "0.0.1-security",
+    "http-errors": "^1.8.0",
+    "jade": "^1.11.0",
+    "jstoxml": "^2.0.2",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "node-cron": "^2.0.3",
+    "nodejs-nodemailer-outlook": "^1.2.3",
+    "nodemailer": "^6.4.16",
+    "nodemon": "^2.0.6",
+    "path": "^0.12.7",
+    "react-modal": "^3.12.1",
+    "rimraf": "^3.0.2"
   }
 }
