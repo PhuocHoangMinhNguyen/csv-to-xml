@@ -1,25 +1,44 @@
-import React, { Component } from 'react';
-import './App.css';
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+// Navigation Bar
+import NavBar from "./components/layout/NavBar";
+// Notifications
+import NotificationScreen from "./components/notifications/NotificationScreen";
+// Saved Mapping
+import Mapping from './components/mapping/Mapping';
+// Create Mapping
+import DropFile from './components/mapping/DropFile';
+// Clients
+import ClientScreen from './components/client/ClientScreen';
+import EditClient from './components/client/EditClient';
+// FTPs
+import FTPScreen from './components/ftp/FTPScreen';
+import EditFTP from './components/ftp/EditFTP';
+// Admins
+import Admin from './components/admin/AdminScreen';
+// Dashboard
+import Dashboard from './components/Dashboard';
 
-class App extends Component {
-  state = {
-    response: {}
-  };
-
-  componentDidMount() {
-    axios.get('/api/v1/say-something').then((res) => {
-      const response = res.data;
-      this.setState({ response });
-    });
-  }
-
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <h1>Hello from the frontend!</h1>
-        <h1>{this.state.response.body}</h1>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <NavBar />
+          <Switch>
+            <Route exact path='/' component={Dashboard} />
+            <Route path="/notif" component={NotificationScreen} />
+            <Route path="/mapping-drop-file" component={DropFile} />
+            <Route path="/mapping" component={Mapping} />
+            <Route path="/client" component={ClientScreen} />
+            <Route path="/client-edit" component={EditClient} />
+            <Route path="/ftp" component={FTPScreen} />
+            <Route path="/ftp-edit" component={EditFTP} />
+            <Route path="/admin" component={Admin} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }

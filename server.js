@@ -4,8 +4,156 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 
+// Schedule a job
+const cron = require("node-cron");
+// Download from and Upload to FTP server
+const ftp = require("basic-ftp");
+// Process File
+const fs = require('fs');
+// Firebase
+const db = require('./firebase/firebase');
+// Remove Folder
+const rimraf = require('rimraf');
+// Moment
+const moment = require('moment');
+
+var notificationRouter = require('./routes/notification');
+var mappingRouter = require('./routes/mapping');
+var clientRouter = require('./routes/client');
+var ftpRouter = require('./routes/ftp');
+var adminRouter = require('./routes/admin');
+var currentRouter = require('./routes/currentClient');
+
+var runCsvToXML = require('./csvToXml');
+var sendEmailWithoutFile = require('./sendEmailWithoutFile');
+
 // Create a new express application named 'app'
 const app = express();
+
+function csvToXml(clientCode, host) {
+    // Problem: If folder doesn't exist, make a directory.
+
+    // Process Path
+    const processpath = path.join(__dirname, `\\ftpserver\\${host}\\PROC\\`);
+    const errorpath = path.join(__dirname, `\\ftpserver\\${host}\\ERR\\`);
+    const outputpath = path.join(__dirname, `\\ftpserver\\${host}\\OUT\\`);
+
+    fs.mkdir(processpath, (err) => {
+        if (err) return console.error(err);
+        console.log('Directory created sucessfully');
+    });
+
+    fs.mkdir(errorpath, (err) => {
+        if (err) return console.error(err);
+        console.log('Directory created sucessfully');
+    });
+
+    fs.mkdir(outputpath, (err) => {
+        if (err) return console.error(err);
+        console.log('Directory created sucessfully');
+    });
+
+    const directoryPath = path.join(__dirname, `ftpserver\\${host}\\IN`);
+    fs.readdir(directoryPath, function (err, files) {
+        if (err) return console.log("Unable to scan directory: " + err);
+        files.forEach(function (file) {
+            runCsvToXML(file, clientCode, host);
+        });
+    })
+}
+
+async function readFromFTP(doc) {
+    const client = new ftp.Client();
+    client.ftp.verbose = false
+    try {
+        await client.access({
+            host: doc.host,
+            port: doc.port,
+            user: doc.user,
+            password: doc.password,
+            secure: false
+        });
+        console.log(await client.list());
+
+        // Download from remote input directory to local input directory
+        // Problem: If downloading lots of file, it will take a lot of time. 
+        // Meanwhile, client can add some new files while the old files are being downloaded.
+        await client.downloadToDir(`ftpserver\\${doc.host}\\IN`, doc.pathInputs);
+        // Delete input folder.
+        await client.ensureDir(doc.pathInputs);
+        await client.clearWorkingDir().then(() => { csvToXml(doc.clientCode, doc.host) });
+    }
+    catch (err) {
+        // Error Message 1: Cannot Connect to FTP Server
+        db.collection('notifications').add({
+            notificationType: `Cannot connect to FTP server ${doc.host}`,
+            client: '',
+            csvFile: '',
+            time: new Date(),
+        }).then(() => {
+            const errorMessage = `Error Name: Cannot connect to FTP server ${doc.host}\n`;
+            const clientMessage = `From Client: ${doc.clientCode}\n`;
+            const timeMessage = `Time: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
+            const message = errorMessage + clientMessage + timeMessage;
+            sendEmailWithoutFile(message);
+        });
+    }
+    client.close();
+}
+
+async function uploadtoFTP(doc) {
+    const client = new ftp.Client();
+    client.ftp.verbose = false
+    try {
+        await client.access({
+            host: doc.host,
+            port: doc.port,
+            user: doc.user,
+            password: doc.password,
+            secure: false
+        });
+        console.log(await client.list());
+
+        // Upload from local directories to remote directories
+        await client.uploadFromDir(`ftpserver\\${doc.host}\\PROC`, doc.pathProcess);
+        await client.uploadFromDir(`ftpserver\\${doc.host}\\ERR`, doc.pathError);
+        await client.uploadFromDir(`ftpserver\\${doc.host}\\OUT`, doc.pathOutputs);
+
+        // Clear local ftpserver directory
+        const thePath = path.join(__dirname, `ftpserver\\${doc.host}`);
+        rimraf(thePath, function () { console.log('Deleted Local Host Address Directory') });
+    }
+    catch (err) { console.log(err) }
+    client.close();
+}
+
+// cron job every minute
+// Optimize Idea 1: Should read 1 file at a time to prevent the case that 
+// the client was entering a new input file while the system is processing.
+cron.schedule("* * * * *", function () {
+    console.log("Running Cron Job");
+    // Delete notification's documents that are older than 1 year
+    const now = Date.now();
+    // Every year
+    const cutoff = new Date(now - 365 * 24 * 60 * 60 * 1000);
+    db.collection('notifications').orderBy('time').endAt(cutoff).get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                console.log("Doc: " + doc.data());
+                doc.ref.delete();
+            });
+        });
+
+    // Main function
+    db.collection('ftps').get().then(querySnapshot => {
+        let docs = querySnapshot.docs
+        // Problem: Currently can only run with 1 FTP server.
+        for (let doc of docs) {
+            readFromFTP(doc.data());
+            setTimeout(() => { uploadtoFTP(doc.data()) }, 5000);
+        }
+    });
+});
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
@@ -25,11 +173,12 @@ app.use(bodyParser.urlencoded({
 // Configure the CORs middleware
 app.use(cors());
 
-// Require Route
-const api = require('./routes/routes');
-
-// Configure app to use route
-app.use('/api/v1/', api);
+app.use('/', notificationRouter);
+app.use('/', mappingRouter);
+app.use('/', clientRouter);
+app.use('/', ftpRouter);
+app.use('/', adminRouter);
+app.use('/', currentRouter);
 
 // This middleware informs the express application to serve our compiled React files
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
