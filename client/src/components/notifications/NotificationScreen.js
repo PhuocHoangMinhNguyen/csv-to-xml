@@ -16,16 +16,12 @@ class NotificationScreen extends React.Component {
 
     componentDidMount = () => {
         // in routes/notification.js
-        axios.get('/notif').then(response => response.json())
-            .then(resp => {
-                this.setState({ notifications: resp });
-                this.setState({ currentNotifications: resp });
-            })
-            .catch(err => console.log(err));
+        axios.get('/notif').then(res => {
+            this.setState({ notifications: res.data });
+            this.setState({ currentNotifications: res.data });
+        });
         // in routes/client.js
-        axios.get('/client').then(response => response.json())
-            .then(resp => { this.setState({ clients: resp }) })
-            .catch(err => console.log(err));
+        axios.get('/client').then(res => this.setState({ clients: res.data }));
     };
 
     filterStatus = (e) => {

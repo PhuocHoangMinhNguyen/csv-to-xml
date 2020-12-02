@@ -15,9 +15,7 @@ class DropFile extends React.Component {
 
     componentDidMount() {
         // in routes/client.js
-        axios.get('/client').then(response => response.json())
-            .then(resp => { this.setState({ clients: resp }) })
-            .catch(err => console.log(err));
+        axios.get('/client').then(res => this.setState({ clients: res.data }));
     };
 
     handleSave = () => {

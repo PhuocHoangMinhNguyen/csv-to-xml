@@ -13,9 +13,7 @@ class ClientList extends React.Component {
 
     componentDidMount() {
         // in routes/client.js
-        axios.get('/client').then(response => response.json())
-            .then(resp => { this.setState({ clients: resp }) })
-            .catch(err => console.log(err));
+        axios.get('/client').then(res => this.setState({ clients: res.data }));
     };
 
     handleRemove = (id) => {
@@ -24,10 +22,10 @@ class ClientList extends React.Component {
             message: 'Are you sure you want to delete the client with its mapping?',
             buttons: [{
                 label: 'Delete',
-                onClick: () => { this.handleYes(id) }
+                onClick: () => this.handleYes(id)
             }, {
                 label: 'Cancel',
-                onClick: () => { alert('Delete Action Canceled') }
+                onClick: () => alert('Delete Action Canceled')
             }]
         });
     };

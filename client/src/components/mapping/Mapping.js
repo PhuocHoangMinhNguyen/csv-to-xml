@@ -3,6 +3,7 @@
 import React from 'react';
 import MappingSideBar from '../layout/MappingSideBar';
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 
 // Idea:
 // - Search
@@ -42,10 +43,7 @@ class Dictionary extends React.Component {
 
     componentDidMount() {
         // in routes/client.js
-        window.fetch('/client')
-            .then(response => response.json())
-            .then(resp => { this.setState({ clients: resp }) })
-            .catch(err => console.log(err));
+        axios.get('/client').then(res => this.setState({ clients: res.data }));
     };
 
     render() {

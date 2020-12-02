@@ -17,9 +17,7 @@ class FTPScreen extends React.Component {
     componentDidMount() {
         setTimeout(async () => {
             // in routes/currentClient.js
-            await axios.get('/getcurrentclient').then(response => response.json())
-                .then(resp => { this.setState({ clientCode: resp.clientCode }) })
-                .catch(err => console.log(err));
+            await axios.get('/getcurrentclient').then(res => this.setState({ clientCode: res.data.clientCode }));
             // in routes/ftp.js
             await fetch('/ftp', {
                 method: 'POST',

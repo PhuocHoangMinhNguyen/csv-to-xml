@@ -11,9 +11,7 @@ class AdminList extends React.Component {
 
     componentDidMount() {
         // in routes/admin.js
-        axios.get('/admin').then(response => response.json())
-            .then(resp => { this.setState({ admins: resp }) })
-            .catch(err => console.log(err));
+        axios.get('/admin').then(res => this.setState({ admins: res.data }));
     };
 
     handleRemove = (id) => {
