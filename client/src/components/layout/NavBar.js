@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import magellanLogo from "../../images/magellanLogo.png"
+import magellanLogo from "../../images/magellanLogo.png";
 
 class NavBar extends React.Component {
     render() {
@@ -27,7 +27,7 @@ class NavBar extends React.Component {
                 </nav>
             </div>
         );
-    }
-}
+    };
+};
 
-export default NavBar
+export default NavBar;

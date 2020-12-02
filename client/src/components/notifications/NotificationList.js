@@ -7,10 +7,10 @@ const NotificationList = ({ notifications }) => {
     return (
         <div className="section">
             {notifications && notifications.map(notification => {
-                return (<NotificationSummary notification={notification} />)
+                return <NotificationSummary notification={notification} />
             })}
         </div>
-    )
-}
+    );
+};
 
-export default NotificationList
+export default NotificationList;

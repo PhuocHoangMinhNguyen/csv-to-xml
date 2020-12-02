@@ -21,7 +21,7 @@ class ClientScreen extends React.Component {
                 </div>
             </CSSTransition>
         );
-    }
-}
+    };
+};
 
 export default ClientScreen;

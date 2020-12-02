@@ -7,7 +7,7 @@ const csv = require('csvtojson');
 class Dropzone extends React.Component {
     state = {
         files: [],
-    }
+    };
 
     onDrop = (acceptedFiles, rejectedFiles) => {
         this.setState({
@@ -59,7 +59,7 @@ class Dropzone extends React.Component {
                 <div>{this.state.files.map(f => <div key={f.name}>File Name: {f.name} - {f.size} bytes</div>)}</div>
             </div>
         );
-    }
-}
+    };
+};
 
-export default Dropzone
+export default Dropzone;

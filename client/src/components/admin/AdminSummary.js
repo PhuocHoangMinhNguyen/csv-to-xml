@@ -13,8 +13,8 @@ class AdminSummary extends React.Component {
                     <h5>Admin Email: {admin.email}</h5>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default AdminSummary
+export default AdminSummary;

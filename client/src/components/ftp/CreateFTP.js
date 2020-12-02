@@ -1,6 +1,7 @@
 // Create new FTP server form inside ftp screen
 
 import React from 'react';
+import axios from 'axios';
 
 class CreateFTP extends React.Component {
     state = {
@@ -12,11 +13,9 @@ class CreateFTP extends React.Component {
         pathOutputs: '',
         user: '',
         password: '',
-    }
+    };
 
-    handleChange = (e) => {
-        this.setState({ [e.target.id]: e.target.value });
-    }
+    handleChange = (e) => this.setState({ [e.target.id]: e.target.value });
 
     handleSubmit = (e) => {
         const { host, port, pathInputs, pathError, pathProcess, pathOutputs, user, password } = this.state
@@ -43,8 +42,8 @@ class CreateFTP extends React.Component {
                 .then(alert("Data Stored in Firestore"));
         } else {
             alert("Please Enter All Fields");
-        }
-    }
+        };
+    };
 
     render() {
         const { clientCode } = this.props

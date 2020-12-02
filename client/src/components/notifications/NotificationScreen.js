@@ -3,6 +3,7 @@
 import React from 'react';
 import NotificationList from "./NotificationList";
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 
 class NotificationScreen extends React.Component {
     state = {
@@ -11,22 +12,21 @@ class NotificationScreen extends React.Component {
         clients: [],
         chosenClient: '',
         chosenStatus: '',
-    }
+    };
 
     componentDidMount = () => {
         // in routes/notification.js
-        window.fetch('/notif')
-            .then(response => response.json())
+        axios.get('/notif').then(response => response.json())
             .then(resp => {
                 this.setState({ notifications: resp });
                 this.setState({ currentNotifications: resp });
             })
             .catch(err => console.log(err));
         // in routes/client.js
-        window.fetch('/client').then(response => response.json())
+        axios.get('/client').then(response => response.json())
             .then(resp => { this.setState({ clients: resp }) })
             .catch(err => console.log(err));
-    }
+    };
 
     filterStatus = (e) => {
         this.setState({ chosenStatus: e.target.value });
@@ -54,9 +54,9 @@ class NotificationScreen extends React.Component {
                         notis.push(noti);
                 });
                 this.setState({ currentNotifications: notis });
-            }
-        }
-    }
+            };
+        };
+    };
 
     filterClient = (e) => {
         this.setState({ chosenClient: e.target.value });
@@ -69,7 +69,7 @@ class NotificationScreen extends React.Component {
                     if (noti.notificationType === this.state.chosenStatus) notis.push(noti);
                 });
                 this.setState({ currentNotifications: notis });
-            }
+            };
         } else {
             if (this.state.chosenStatus === '') {
                 var notis = [];
@@ -83,9 +83,9 @@ class NotificationScreen extends React.Component {
                     if (noti.client === e.target.value && noti.notificationType === this.state.chosenStatus) notis.push(noti);
                 });
                 this.setState({ currentNotifications: notis });
-            }
-        }
-    }
+            };
+        };
+    };
 
     render() {
         const { currentNotifications, clients } = this.state;
@@ -128,7 +128,7 @@ class NotificationScreen extends React.Component {
                 </div>
             </CSSTransition>
         );
-    }
-}
+    };
+};
 
-export default NotificationScreen
+export default NotificationScreen;

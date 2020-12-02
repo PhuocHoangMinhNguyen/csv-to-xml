@@ -1,16 +1,17 @@
 // Create new client form inside client screen
 
 import React from 'react';
+import axios from 'axios';
 
 class CreateClient extends React.Component {
     state = {
         clientCode: '',
         clientName: ''
-    }
+    };
 
     handleChange = e => {
         this.setState({ [e.target.id]: e.target.value });
-    }
+    };
 
     handleSubmit = e => {
         const { clientCode, clientName } = this.state
@@ -24,8 +25,8 @@ class CreateClient extends React.Component {
                 .then(alert("Data Stored in Firestore"));
         } else {
             alert('Please Enter All Fields');
-        }
-    }
+        };
+    };
 
     render() {
         return (
@@ -50,8 +51,8 @@ class CreateClient extends React.Component {
                     </div>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default CreateClient
+export default CreateClient;

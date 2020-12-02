@@ -18,8 +18,8 @@ class AdminScreen extends React.Component {
                     <div className="col s1"></div>
                 </div>
             </CSSTransition>
-        )
-    }
-}
+        );
+    };
+};
 
-export default AdminScreen
+export default AdminScreen;

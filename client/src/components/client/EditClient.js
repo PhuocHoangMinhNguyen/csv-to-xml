@@ -1,23 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 
 class EditClient extends React.Component {
     state = {
         id: '',
         clientName: ''
-    }
+    };
 
     componentDidMount() {
         this.setState({
             id: this.props.location.state.client.id,
             clientName: this.props.location.state.client.clientName,
         });
-    }
+    };
 
     handleChange = (e) => {
         this.setState({ [e.target.id]: e.target.value });
-    }
+    };
 
     handleSubmit = () => {
         const { id, clientName } = this.state
@@ -34,11 +35,11 @@ class EditClient extends React.Component {
             }).then(response => response.json());
         } else {
             alert('Please Enter All Fields to Edit Client Information');
-        }
-    }
+        };
+    };
 
     render() {
-        const { id, clientName } = this.state
+        const { id } = this.state
         return (
             <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
                 <div className="container section">
@@ -59,8 +60,8 @@ class EditClient extends React.Component {
                     </div>
                 </div>
             </CSSTransition>
-        )
-    }
-}
+        );
+    };
+};
 
 export default EditClient

@@ -2,19 +2,19 @@ import React from 'react';
 import AdminSummary from './AdminSummary';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import axios from 'axios';
 
 class AdminList extends React.Component {
     state = {
         admins: null,
-    }
+    };
 
     componentDidMount() {
         // in routes/admin.js
-        window.fetch('/admin')
-            .then(response => response.json())
+        axios.get('/admin').then(response => response.json())
             .then(resp => { this.setState({ admins: resp }) })
             .catch(err => console.log(err));
-    }
+    };
 
     handleRemove = (id) => {
         confirmAlert({
@@ -28,19 +28,19 @@ class AdminList extends React.Component {
                 onClick: () => { alert('Delete Action Canceled') }
             }]
         });
-    }
+    };
 
     handleYes = (id) => {
         const admin = {
             id: id
-        }
+        };
         fetch('/deleteadmin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(admin)
         }).then(response => response.json())
-            .then(resp => { this.setState({ admins: resp }) })
-    }
+            .then(resp => { this.setState({ admins: resp }) });
+    };
 
     render() {
         const { admins } = this.state
@@ -50,8 +50,8 @@ class AdminList extends React.Component {
                     return (<AdminSummary admin={admin} onRemove={() => this.handleRemove(admin.id)} />)
                 })}
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default AdminList
+export default AdminList;

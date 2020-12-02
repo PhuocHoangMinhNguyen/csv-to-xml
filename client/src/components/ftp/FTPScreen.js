@@ -6,18 +6,18 @@ import FTPSummary from './FTPSummary';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 
 class FTPScreen extends React.Component {
     state = {
         clientCode: '',
         ftps: [],
-    }
+    };
 
     componentDidMount() {
         setTimeout(async () => {
             // in routes/currentClient.js
-            await window.fetch('/getcurrentclient')
-                .then(response => response.json())
+            await axios.get('/getcurrentclient').then(response => response.json())
                 .then(resp => { this.setState({ clientCode: resp.clientCode }) })
                 .catch(err => console.log(err));
             // in routes/ftp.js
@@ -28,7 +28,7 @@ class FTPScreen extends React.Component {
             }).then(response => response.json())
                 .then(resp => { this.setState({ ftps: resp }) });
         }, 100);
-    }
+    };
 
     handleRemove = (id) => {
         confirmAlert({
@@ -42,7 +42,7 @@ class FTPScreen extends React.Component {
                 onClick: () => { alert('Delete Action Canceled') }
             }]
         });
-    }
+    };
 
     handleYes = (id) => {
         const ftp = {
@@ -55,7 +55,7 @@ class FTPScreen extends React.Component {
             body: JSON.stringify(ftp)
         }).then(response => response.json())
             .then(resp => { this.setState({ ftps: resp }) });
-    }
+    };
 
     render() {
         const { clientCode, ftps } = this.state
@@ -82,7 +82,7 @@ class FTPScreen extends React.Component {
                 </div>
             </CSSTransition>
         );
-    }
-}
+    };
+};
 
 export default FTPScreen;

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 // Navigation Bar
 import NavBar from "./components/layout/NavBar";
@@ -40,7 +39,7 @@ class App extends React.Component {
         </div>
       </BrowserRouter>
     );
-  }
-}
+  };
+};
 
 export default App;

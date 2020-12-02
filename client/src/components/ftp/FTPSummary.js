@@ -48,8 +48,8 @@ class FTPSummary extends React.Component {
                     </div>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default FTPSummary
+export default FTPSummary;

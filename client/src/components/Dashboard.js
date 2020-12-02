@@ -24,7 +24,7 @@ var scroll = Scroll.animateScroll;
 class Dashboard extends React.Component {
     handleScroll = (e) => {
         scroll.scrollTo(e.target.value)
-    }
+    };
 
     render() {
         return (
@@ -148,8 +148,8 @@ class Dashboard extends React.Component {
                     </div>
                 </div>
             </CSSTransition >
-        )
-    }
-}
+        );
+    };
+};
 
-export default Dashboard
+export default Dashboard;

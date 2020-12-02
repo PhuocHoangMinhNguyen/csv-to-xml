@@ -4,20 +4,21 @@ import React from 'react';
 import MappingSideBar from '../layout/MappingSideBar';
 import Dropzone from './Dropzone';
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 
 class DropFile extends React.Component {
     state = {
         mappingResult: [],
         clients: null,
         chosenClient: null,
-    }
+    };
 
     componentDidMount() {
         // in routes/client.js
-        window.fetch('/client').then(response => response.json())
+        axios.get('/client').then(response => response.json())
             .then(resp => { this.setState({ clients: resp }) })
             .catch(err => console.log(err));
-    }
+    };
 
     handleSave = () => {
         const { mappingResult, chosenClient } = this.state
@@ -28,11 +29,11 @@ class DropFile extends React.Component {
                     customerField: [],
                     customerValue: [],
                     magellanValue: []
-                }
+                };
                 let processDefaultValues = {
                     magellanField: [],
                     defaultValue: []
-                }
+                };
                 processDefaultValues.magellanField.push('ClientCode');
                 processDefaultValues.defaultValue.push(chosenClient);
                 mappingResult.forEach(element => {
@@ -44,13 +45,13 @@ class DropFile extends React.Component {
                     } else {
                         processDefaultValues.magellanField.push(element.MagellanField);
                         processDefaultValues.defaultValue.push(element.MagellanValue);
-                    }
+                    };
                 });
 
                 const dictionaryInfo = {
                     dictionaryV: processDictionary,
                     client: chosenClient
-                }
+                };
                 // in routes/mapping.js
                 fetch('/savedic', {
                     method: 'POST',
@@ -61,7 +62,7 @@ class DropFile extends React.Component {
                 const defaultInfo = {
                     defaultV: processDefaultValues,
                     client: chosenClient
-                }
+                };
                 // in routes/mapping.js
                 fetch('/savedef', {
                     method: 'POST',
@@ -70,8 +71,8 @@ class DropFile extends React.Component {
                 }).then(response => response.json());
 
                 alert("Data Stored in Firestore");
-            } else { alert("Please Drop a Mapping File") }
-        } else { alert('Please Choose Client Code') }
+            } else alert("Please Drop a Mapping File");
+        } else alert('Please Choose Client Code');
     }
 
     render() {
@@ -131,7 +132,7 @@ class DropFile extends React.Component {
                 </CSSTransition>
             </div>
         );
-    }
-}
+    };
+};
 
-export default DropFile
+export default DropFile;

@@ -4,19 +4,19 @@ import React from 'react';
 import ClientSummary from './ClientSummary';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import axios from 'axios';
 
 class ClientList extends React.Component {
     state = {
         clients: null,
-    }
+    };
 
     componentDidMount() {
         // in routes/client.js
-        window.fetch('/client')
-            .then(response => response.json())
+        axios.get('/client').then(response => response.json())
             .then(resp => { this.setState({ clients: resp }) })
             .catch(err => console.log(err));
-    }
+    };
 
     handleRemove = (id) => {
         confirmAlert({
@@ -30,7 +30,7 @@ class ClientList extends React.Component {
                 onClick: () => { alert('Delete Action Canceled') }
             }]
         });
-    }
+    };
 
     handleYes = (id) => {
         const client = {
@@ -42,8 +42,8 @@ class ClientList extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(client)
         }).then(response => response.json())
-            .then(resp => { this.setState({ clients: resp }) })
-    }
+            .then(resp => { this.setState({ clients: resp }) });
+    };
 
     render() {
         const { clients } = this.state
@@ -53,8 +53,8 @@ class ClientList extends React.Component {
                     return (<ClientSummary client={client} onRemove={() => this.handleRemove(client.id)} />)
                 })}
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default ClientList
+export default ClientList;

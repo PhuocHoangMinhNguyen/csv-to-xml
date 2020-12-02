@@ -10,8 +10,8 @@ class MappingSideBar extends React.Component {
                 <li><NavLink to='/mapping' activeStyle={{ backgroundColor: '#DDD' }}>Saved Mapping</NavLink></li>
                 <li><NavLink to='/mapping-drop-file' activeStyle={{ backgroundColor: '#DDD' }}>Create Mapping</NavLink></li>
             </ul>
-        )
-    }
-}
+        );
+    };
+};
 
-export default MappingSideBar
+export default MappingSideBar;

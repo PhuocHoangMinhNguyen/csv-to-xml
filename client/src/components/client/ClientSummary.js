@@ -16,7 +16,7 @@ class ClientSummary extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(post)
         }).then(response => response.json());
-    }
+    };
 
     render() {
         const { client, onRemove } = this.props
@@ -43,8 +43,8 @@ class ClientSummary extends React.Component {
                     <p>Client Name: {client.clientName}</p>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default ClientSummary
+export default ClientSummary;

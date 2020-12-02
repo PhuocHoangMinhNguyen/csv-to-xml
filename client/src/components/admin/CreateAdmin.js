@@ -1,15 +1,16 @@
 import React from 'react';
+import axios from 'axios';
 
 class CreateAdmin extends React.Component {
     state = {
         email: ''
-    }
+    };
 
     handleChange = e => {
         this.setState({
             [e.target.id]: e.target.value
         });
-    }
+    };
 
     handleSubmit = e => {
         const admin = {
@@ -22,7 +23,7 @@ class CreateAdmin extends React.Component {
             body: JSON.stringify(admin)
         }).then(response => response.json())
             .then(alert("Data Stored in Firestore"));
-    }
+    };
 
     render() {
         return (
@@ -43,8 +44,8 @@ class CreateAdmin extends React.Component {
                     </div>
                 </div>
             </div >
-        )
-    }
-}
+        );
+    };
+};
 
-export default CreateAdmin
+export default CreateAdmin;

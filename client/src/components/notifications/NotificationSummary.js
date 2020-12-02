@@ -15,7 +15,7 @@ const NotificationSummary = ({ notification }) => {
                     </div>
                 </div>
             </div>
-        )
+        );
     } else {
         return (
             <div className="card" style={{ borderRadius: 10 }}>
@@ -27,8 +27,8 @@ const NotificationSummary = ({ notification }) => {
                     </div>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default NotificationSummary
+export default NotificationSummary;

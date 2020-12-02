@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 
 class EditFTP extends React.Component {
     state = {
@@ -14,7 +15,7 @@ class EditFTP extends React.Component {
         pathOutputs: '',
         user: '',
         password: '',
-    }
+    };
 
     componentDidMount() {
         this.setState({
@@ -28,12 +29,10 @@ class EditFTP extends React.Component {
             pathOutputs: this.props.location.state.ftp.pathOutputs,
             user: this.props.location.state.ftp.user,
             password: this.props.location.state.ftp.password,
-        })
-    }
+        });
+    };
 
-    handleChange = (e) => {
-        this.setState({ [e.target.id]: e.target.value })
-    }
+    handleChange = (e) => this.setState({ [e.target.id]: e.target.value });
 
     handleSubmit = () => {
         const { id, host, port, pathInputs, pathProcess, pathError, pathOutputs, clientCode, user, password } = this.state
@@ -59,11 +58,11 @@ class EditFTP extends React.Component {
             }).then(response => response.json());
         } else {
             alert('Please Enter All Fields to Edit FTP Information');
-        }
-    }
+        };
+    };
 
     render() {
-        const { host, port, pathInputs, pathProcess, pathError, pathOutputs, clientCode, user, password } = this.state
+        const { clientCode } = this.state
         return (
             <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
                 <div className="container section">
@@ -112,8 +111,8 @@ class EditFTP extends React.Component {
                     </div>
                 </div>
             </CSSTransition>
-        )
-    }
-}
+        );
+    };
+};
 
-export default EditFTP
+export default EditFTP;

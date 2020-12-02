@@ -15,7 +15,7 @@ class Dictionary extends React.Component {
         existDictionary: [],
         existDefaultValue: [],
         clients: null,
-    }
+    };
 
     dicdef = (clientId) => {
         const clientJson = {
@@ -38,7 +38,7 @@ class Dictionary extends React.Component {
             body: JSON.stringify(clientJson)
         }).then(response => response.json())
             .then(resp => { this.setState({ existDefaultValue: resp }) });
-    }
+    };
 
     componentDidMount() {
         // in routes/client.js
@@ -46,7 +46,7 @@ class Dictionary extends React.Component {
             .then(response => response.json())
             .then(resp => { this.setState({ clients: resp }) })
             .catch(err => console.log(err));
-    }
+    };
 
     render() {
         const { clients, existDefaultValue, existDictionary } = this.state
@@ -117,7 +117,7 @@ class Dictionary extends React.Component {
                 </CSSTransition>
             </div>
         );
-    }
-}
+    };
+};
 
-export default Dictionary
+export default Dictionary;
