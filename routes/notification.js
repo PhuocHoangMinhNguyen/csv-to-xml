@@ -1,0 +1,27 @@
+var express = require('express');
+var router = express.Router();
+// Firebase
+const db = require('../firebase/firebase');
+// Moment
+const moment = require('moment');
+
+// Dashboard.js
+router.get('/notif', async function (req, res, next) {
+  let defaultResponse = [];
+  await db.collection('notifications').get().then(querySnapshot => {
+    let docs = querySnapshot.docs
+    for (let doc of docs) {
+      const selectedItem = {
+        id: doc.id,
+        notificationType: doc.data().notificationType,
+        client: doc.data().client,
+        csvFile: doc.data().csvFile,
+        time: moment(doc.data().time.toDate()).format('MMMM Do YYYY, hh:mm a'),
+      }
+      defaultResponse.push(selectedItem);
+    }
+  });
+  res.json(defaultResponse);
+});
+
+module.exports = router;
