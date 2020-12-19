@@ -30,4 +30,4 @@ Magellan CSV to XML System is a system designed for Magellan Logistics Company t
 ## How to use?
 
 ## Author
-* **Phuoc Hoang Minh Nguyen** - *Full-stack Developer* - [PhuocHoangMinhNguyen](https://github.com/PhuocHoangMinhNguyen)
+**Phuoc Hoang Minh Nguyen** - *Full-stack Developer* - [PhuocHoangMinhNguyen](https://github.com/PhuocHoangMinhNguyen)
