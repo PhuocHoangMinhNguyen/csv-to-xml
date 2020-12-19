@@ -22,7 +22,6 @@ Magellan CSV to XML System is a system designed for Magellan Logistics Company t
 - Version Control: Github
 
 ## Features
-This system allows users to:
 - View Notifications. Notifications includes all the succeeded and failed translation process.
 - Uploading "translating dictionaries" as CSV files for existing clients, used to translate client's input files later.
 - Adding Client's information. These are the Client's information, used to decide which "translating dictionary" to use.
