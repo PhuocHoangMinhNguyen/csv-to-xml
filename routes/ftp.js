@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
 });
 
 // EditFTP.js
-router.post('/editftp', async function (req, res, next) {
+router.post('/edit', async (req, res) => {
     await db.collection('ftps').doc(req.body.id).set({
         host: req.body.host,
         port: req.body.port,
@@ -50,7 +50,7 @@ router.post('/editftp', async function (req, res, next) {
 });
 
 // FTPScreen.js
-router.post('/deleteftp', async function (req, res, next) {
+router.post('/delete', async (req, res) => {
     await db.collection('ftps').doc(req.body.id).delete();
     let defaultResponse = [];
     await db.collection('ftps').get().then(querySnapshot => {
