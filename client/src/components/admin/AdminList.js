@@ -32,7 +32,7 @@ class AdminList extends React.Component {
         const admin = {
             id: id
         };
-        axios.post('/deleteadmin', { id: id })
+        axios.post('/admin/delete', { id: id })
             .then(res => this.setState({ admins: res.data }));
     };
 

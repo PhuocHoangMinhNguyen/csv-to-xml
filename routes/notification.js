@@ -6,7 +6,7 @@ const db = require('../firebase/firebase');
 const moment = require('moment');
 
 // Dashboard.js
-router.get('/notif', async function (req, res, next) {
+router.get('/', async (req, res) => {
   let defaultResponse = [];
   await db.collection('notifications').get().then(querySnapshot => {
     let docs = querySnapshot.docs

@@ -35,7 +35,7 @@ class ClientList extends React.Component {
             id: id
         }
         // in routes/client.js
-        fetch('/deleteclient', {
+        fetch('/client/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(client)

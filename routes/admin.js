@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../firebase/firebase');
 
 // AdminList.js
-router.get('/admin', async function (req, res, next) {
+router.get('/', async (req, res) => {
     let defaultResponse = [];
     await db.collection('admins').get().then(querySnapshot => {
         let docs = querySnapshot.docs
@@ -20,7 +20,7 @@ router.get('/admin', async function (req, res, next) {
 });
 
 // AdminList.js
-router.post('/deleteadmin', async function (req, res, next) {
+router.post('/delete', async (req, res) => {
     await db.collection('admins').doc(req.body.id).delete();
     let defaultResponse = [];
     await db.collection('admins').get().then(querySnapshot => {
@@ -37,7 +37,7 @@ router.post('/deleteadmin', async function (req, res, next) {
 });
 
 // CreateAdmin.js
-router.post('/createadmin', async function (req, res, next) {
+router.post('/create', async (req, res) => {
     await db.collection('admins').add({ email: req.body.email });
 });
 

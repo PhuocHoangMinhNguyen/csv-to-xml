@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../firebase/firebase');
 
 // Mapping.js
-router.post('/dic', async function (req, res, next) {
+router.post('/dic', async (req, res) => {
   let defaultResponse = [];
   await db.collection('dictionary').doc(req.body.id).get().then(doc => {
     if (doc.data()) {
@@ -23,7 +23,7 @@ router.post('/dic', async function (req, res, next) {
 });
 
 // Mapping.js
-router.post('/def', async function (req, res, next) {
+router.post('/def', async (req, res) => {
   let defaultResponse = [];
   await db.collection('default value').doc(req.body.id).get().then(doc => {
     if (doc.data()) {
@@ -40,7 +40,7 @@ router.post('/def', async function (req, res, next) {
 });
 
 // DropFile.js & EditMapping.js
-router.post('/savedic', async function (req, res, next) {
+router.post('/savedic', async (req, res) => {
   await db.collection('dictionary').doc(req.body.client).set(req.body.dictionaryV)
   let defaultResponse = [];
   for (let i = 0; i < req.body.dictionaryV.magellanField.length; i++) {
@@ -56,7 +56,7 @@ router.post('/savedic', async function (req, res, next) {
 });
 
 // DropFile.js & EditMapping.js
-router.post('/savedef', async function (req, res, next) {
+router.post('/savedef', async (req, res) => {
   await db.collection('default value').doc(req.body.client).set(req.body.defaultV)
   let defaultResponse = [];
   for (let i = 0; i < req.body.defaultV.magellanField.length; i++) {
@@ -70,7 +70,7 @@ router.post('/savedef', async function (req, res, next) {
 });
 
 // MappingForm.js
-router.post('/formdic', async function (req, res, next) {
+router.post('/formdic', async (req, res) => {
   await db.collection('dictionary').doc(req.body.client).delete()
   await db.collection('dictionary').doc(req.body.client).set(req.body.dictionaryV, { merge: true })
 });

@@ -51,7 +51,7 @@ class DropFile extends React.Component {
                     client: chosenClient
                 };
                 // in routes/mapping.js
-                fetch('/savedic', {
+                fetch('/mapping/savedic', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dictionaryInfo)
@@ -62,7 +62,7 @@ class DropFile extends React.Component {
                     client: chosenClient
                 };
                 // in routes/mapping.js
-                fetch('/savedef', {
+                fetch('/mapping/savedef', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(defaultInfo)

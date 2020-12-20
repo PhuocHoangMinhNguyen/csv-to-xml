@@ -51,7 +51,7 @@ class EditFTP extends React.Component {
                 password: password
             }
             // in routes/ftp.js
-            fetch('/editftp', {
+            fetch('/ftp/edit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(theFTP)

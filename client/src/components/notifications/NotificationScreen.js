@@ -16,7 +16,7 @@ class NotificationScreen extends React.Component {
 
     componentDidMount = () => {
         // in routes/notification.js
-        axios.get('/notif').then(res => {
+        axios.get('/notification').then(res => {
             this.setState({ notifications: res.data });
             this.setState({ currentNotifications: res.data });
         });

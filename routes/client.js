@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../firebase/firebase');
 
 // ClientList.js & DropFile.js
-router.get('/client', async function (req, res, next) {
+router.get('/', async (req, res) => {
     let defaultResponse = [];
     await db.collection('clients').get().then(querySnapshot => {
         let docs = querySnapshot.docs
@@ -20,21 +20,21 @@ router.get('/client', async function (req, res, next) {
 });
 
 // CreateClient.js
-router.post('/createclient', async function (req, res, next) {
+router.post('/create', async (req, res) => {
     await db.collection('clients').doc(req.body.clientCode).set({
         clientName: req.body.clientName
     });
 });
 
 // EditClient.js
-router.post('/editclient', async function (req, res, next) {
+router.post('/edit', async (req, res) => {
     await db.collection('clients').doc(req.body.id).set({
         clientName: req.body.clientName
     }, { merge: true });
 });
 
 // ClientList.js
-router.post('/deleteclient', async function (req, res, next) {
+router.post('/delete', async (req, res) => {
     await db.collection('dictionary').doc(req.body.id).delete();
     await db.collection('default value').doc(req.body.id).delete();
     await db.collection('clients').doc(req.body.id).delete();

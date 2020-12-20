@@ -28,7 +28,7 @@ class EditClient extends React.Component {
                 clientName: clientName
             }
             // in routes/client.js
-            fetch('/editclient', {
+            fetch('/client/edit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(theClient)

@@ -173,12 +173,12 @@ app.use(bodyParser.urlencoded({
 // Configure the CORs middleware
 app.use(cors());
 
-app.use('/', notificationRouter);
-app.use('/', mappingRouter);
-app.use('/', clientRouter);
-app.use('/', ftpRouter);
-app.use('/', adminRouter);
-app.use('/', currentRouter);
+app.use('/notification', notificationRouter);
+app.use('/mapping', mappingRouter);
+app.use('/client', clientRouter);
+app.use('/ftp', ftpRouter);
+app.use('/admin', adminRouter);
+app.use('/current', currentRouter);
 
 // This middleware informs the express application to serve our compiled React files
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {

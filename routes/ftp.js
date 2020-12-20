@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../firebase/firebase');
 
 // FTPScreen.js
-router.post('/ftp', async function (req, res, next) {
+router.post('/', async (req, res) => {
     console.log(req.body)
     let defaultResponse = [];
     await db.collection('ftps').where('clientCode', '==', req.body.clientCode)
@@ -30,7 +30,7 @@ router.post('/ftp', async function (req, res, next) {
 });
 
 // CreateFTP.js
-router.post('/createftp', async function (req, res, next) {
+router.post('/create', async (req, res) => {
     await db.collection('ftps').add(req.body);
 });
 

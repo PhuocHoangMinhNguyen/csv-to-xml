@@ -17,7 +17,7 @@ class FTPScreen extends React.Component {
     componentDidMount() {
         setTimeout(async () => {
             // in routes/currentClient.js
-            await axios.get('/getcurrentclient').then(res => this.setState({ clientCode: res.data.clientCode }));
+            await axios.get('/current/getcurrentclient').then(res => this.setState({ clientCode: res.data.clientCode }));
             // in routes/ftp.js
             await fetch('/ftp', {
                 method: 'POST',
@@ -47,7 +47,7 @@ class FTPScreen extends React.Component {
             id: id
         }
         // in routes/ftp.js
-        fetch('/deleteftp', {
+        fetch('/ftp/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(ftp)

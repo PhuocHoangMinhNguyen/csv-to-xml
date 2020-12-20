@@ -17,7 +17,7 @@ class CreateClient extends React.Component {
         const { clientCode, clientName } = this.state
         if (clientCode !== '' && clientName !== '') {
             // in routes/client.js
-            fetch('/createclient', {
+            fetch('/client/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.state)

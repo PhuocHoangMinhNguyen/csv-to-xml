@@ -34,7 +34,7 @@ class CreateFTP extends React.Component {
                 password: password,
             }
             // in routes/ftp.js
-            fetch('/createftp', {
+            fetch('/ftp/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(created)

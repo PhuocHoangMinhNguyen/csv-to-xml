@@ -11,7 +11,7 @@ class ClientSummary extends React.Component {
             id: client.id
         }
         // in routes/currentClient.js
-        await fetch('/postcurrentclient', {
+        await fetch('/current/postcurrentclient', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(post)

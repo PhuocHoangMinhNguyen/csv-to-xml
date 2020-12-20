@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../firebase/firebase');
 
 // ClientSummary.js
-router.post('/postcurrentclient', async function (req, res, next) {
+router.post('/postcurrentclient', async (req, res) => {
     console.log("Post: " + req.body.id);
     await db.collection('currentClient').doc('currentClient').set({
         clientCode: req.body.id
@@ -12,7 +12,7 @@ router.post('/postcurrentclient', async function (req, res, next) {
 });
 
 // FTPScreen.js
-router.get('/getcurrentclient', async function (req, res, next) {
+router.get('/getcurrentclient', async (req, res) => {
     let defaultResponse = {};
     await db.collection('currentClient').doc('currentClient').get().then(doc => {
         defaultResponse = doc.data();

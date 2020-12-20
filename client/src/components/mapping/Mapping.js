@@ -23,7 +23,7 @@ class Dictionary extends React.Component {
             id: clientId
         }
         // in routes/mapping.js
-        fetch('/dic', {
+        fetch('/mapping/dic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(clientJson)
@@ -33,7 +33,7 @@ class Dictionary extends React.Component {
             });
 
         // in routes/mapping.js
-        fetch('/def', {
+        fetch('/mapping/def', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(clientJson)
