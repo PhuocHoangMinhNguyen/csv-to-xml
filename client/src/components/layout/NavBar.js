@@ -14,13 +14,13 @@ class NavBar extends React.Component {
                             <img style={{ height: 60 }} src={magellanLogo} />
                         </Link>
                         <ul className="right">
-                            <li><NavLink to='/notif' style={{ color: "black" }}
+                            <li><NavLink to='/notification-screen' style={{ color: "black" }}
                                 activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Notifications</NavLink></li>
-                            <li><NavLink to='/mapping' style={{ color: "black" }}
+                            <li><NavLink to='/mapping-screen' style={{ color: "black" }}
                                 activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Mapping</NavLink></li>
-                            <li><NavLink to='/client' style={{ color: "black" }}
+                            <li><NavLink to='/client-screen' style={{ color: "black" }}
                                 activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Clients</NavLink></li>
-                            <li><NavLink to='/admin' style={{ color: "black" }}
+                            <li><NavLink to='/admin-screen' style={{ color: "black" }}
                                 activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Admins</NavLink></li>
                         </ul>
                     </div>

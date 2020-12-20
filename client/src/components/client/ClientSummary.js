@@ -36,7 +36,7 @@ class ClientSummary extends React.Component {
                     <Link className="right" style={{ fontSize: 18, color: '#0078bf' }}
                         onClick={() => { this.handleShow() }}
                         to={{
-                            pathname: '/ftp',
+                            pathname: '/ftp-screen',
                             state: { client: client }
                         }}>FTP</Link>
                     <h5>Client Code: {client.id}</h5>

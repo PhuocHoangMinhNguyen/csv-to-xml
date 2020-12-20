@@ -105,7 +105,7 @@ class EditFTP extends React.Component {
                                 <Link onClick={(e) => this.handleSubmit(e)}
                                     className="btn lighten-1 z-depth-0 right"
                                     style={{ backgroundColor: "#0078bf" }}
-                                    to={'/ftp'}>Save</Link>
+                                    to={'/ftp-screen'}>Save</Link>
                             </form>
                         </div>
                     </div>
