@@ -14,7 +14,8 @@ class CreateAdmin extends React.Component {
 
     handleSubmit = e => {
         // in routes/admin.js
-        axios.post('/admin/create', { email: this.state.email }).then(alert("Data Stored in Firestore"));
+        axios.post('/admin/create', { email: this.state.email })
+            .then(res => alert("Data Stored in Firestore"));
     };
 
     render() {
