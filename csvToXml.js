@@ -42,7 +42,7 @@ runCsvToXML = async (file, clientId, host) => {
 
     // Note 0: Deal with cases with '&' sign inside string.
     // CSV to JSON
-    const filePath = path.join(__dirname, `ftpserver\\${host}\\IN\\${file}`);
+    const filePath = path.join(__dirname, `ftpserver\\${clientId}\\${host}\\IN\\${file}`);
     csv({ noheader: true }).fromFile(filePath).then(csvRows => {
         const toJson = [];
         let actualAttributes = [];
@@ -127,8 +127,8 @@ runCsvToXML = async (file, clientId, host) => {
 
         // Error Message 2: Some mapping fields cannot be found in the input file.
         if (countMappingFields < dictionaryResponse.length) {
-            const inputpath1 = __dirname + `\\ftpserver\\${host}\\IN\\` + file
-            const errorpath = __dirname + `\\ftpserver\\${host}\\ERR\\` + file
+            const inputpath1 = __dirname + `\\ftpserver\\${clientId}\\${host}\\IN\\` + file
+            const errorpath = __dirname + `\\ftpserver\\${clientId}\\${host}\\ERR\\` + file
             // Write to the error directory
             fs.copyFile(inputpath1, errorpath, function (err) {
                 if (err) return console.log(err);
@@ -136,8 +136,9 @@ runCsvToXML = async (file, clientId, host) => {
             });
             // Upload notification on Firebase
             db.collection('notifications').add({
-                notificationType: "Some mapping fields cannot be found in the input file.",
+                notificationType: "Some mapping fields cannot be found in the input file",
                 client: clientId,
+                host: host,
                 csvFile: file,
                 time: new Date(),
             }).then(() => {
@@ -169,8 +170,8 @@ runCsvToXML = async (file, clientId, host) => {
             });
         });
         if (mandatoryCount < data.mandatoryHeader.length) {
-            const inputpath1 = __dirname + `\\ftpserver\\${host}\\IN\\` + file
-            const errorpath = __dirname + `\\ftpserver\\${host}\\ERR\\` + file
+            const inputpath1 = __dirname + `\\ftpserver\\${clientId}\\${host}\\IN\\` + file
+            const errorpath = __dirname + `\\ftpserver\\${clientId}\\${host}\\ERR\\` + file
             // Write to the error directory
             fs.copyFile(inputpath1, errorpath, (err) => {
                 if (err) return console.log(err);
@@ -180,6 +181,7 @@ runCsvToXML = async (file, clientId, host) => {
             db.collection('notifications').add({
                 notificationType: "Mandatory fields missing",
                 client: clientId,
+                host: host,
                 csvFile: file,
                 time: new Date(),
             }).then(() => {
@@ -362,9 +364,9 @@ runCsvToXML = async (file, clientId, host) => {
         // Set New File Name to write to local xml directory
         const csvFilename = file.split('.').slice(0, -1).join('.');
         const xmlFilename = csvFilename + ".xml"
-        const processpath = __dirname + `\\ftpserver\\${host}\\PROC\\` + file
-        const outputpath = __dirname + `\\ftpserver\\${host}\\OUT\\` + xmlFilename
-        const inputpath2 = __dirname + `\\ftpserver\\${host}\\IN\\` + file
+        const processpath = __dirname + `\\ftpserver\\${clientId}\\${host}\\PROC\\` + file
+        const outputpath = __dirname + `\\ftpserver\\${clientId}\\${host}\\OUT\\` + xmlFilename
+        const inputpath2 = __dirname + `\\ftpserver\\${clientId}\\${host}\\IN\\` + file
         // Write to the process directory
         fs.copyFile(inputpath2, processpath, (err) => {
             if (err) return console.log(err);
@@ -378,6 +380,7 @@ runCsvToXML = async (file, clientId, host) => {
         // Upload notification on Firebase
         db.collection('notifications').add({
             notificationType: "Success",
+            host: host,
             client: clientId,
             csvFile: file,
             time: new Date(),

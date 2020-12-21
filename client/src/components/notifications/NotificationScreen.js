@@ -99,9 +99,10 @@ class NotificationScreen extends React.Component {
                                     <div className="input-field">
                                         <select className="browser-default" onChange={(e) => this.filterStatus(e)}>
                                             <option value='' selected>Status</option>
-                                            <option value='success'>Success</option>
-                                            <option value='Some mapping fields cannot be found in the input file.'>Some mapping fields cannot be found in the input file.</option>
-                                            <option value='mandatory fields missing'>Mandatory fields missing</option>
+                                            <option value='Success'>Success</option>
+                                            <option value='Some mapping fields cannot be found in the input file'>Some mapping fields cannot be found in the input file</option>
+                                            <option value='Mandatory fields missing'>Mandatory fields missing</option>
+                                            <option value='Cannot connect to FTP server'>Cannot connect to FTP server</option>
                                         </select>
                                     </div>
                                     <div className="input-field">
