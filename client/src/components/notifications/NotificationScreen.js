@@ -27,11 +27,11 @@ class NotificationScreen extends React.Component {
 
     filterStatus = e => {
         this.setState({ chosenStatus: e.target.value });
+        var notis = [];
         if (e.target.value === '') {
             if (this.state.chosenClient === '') {
                 this.setState({ currentNotifications: this.state.notifications });
             } else {
-                var notis = [];
                 this.state.notifications.forEach(noti => {
                     if (noti.client === this.state.chosenClient) notis.push(noti);
                 });
@@ -39,13 +39,11 @@ class NotificationScreen extends React.Component {
             }
         } else {
             if (this.state.chosenClient === '') {
-                var notis = [];
                 this.state.notifications.forEach(noti => {
                     if (noti.notificationType === e.target.value) notis.push(noti);
                 });
                 this.setState({ currentNotifications: notis });
             } else {
-                var notis = [];
                 this.state.notifications.forEach(noti => {
                     if (noti.notificationType === e.target.value && noti.client === this.state.chosenClient)
                         notis.push(noti);
@@ -99,7 +97,7 @@ class NotificationScreen extends React.Component {
                                 <div className="card-content">
                                     <h5>Filter Options</h5>
                                     <div className="input-field">
-                                        <select className="browser-default" onChange={(e) => { this.filterStatus(e) }}>
+                                        <select className="browser-default" onChange={(e) => this.filterStatus(e)}>
                                             <option value='' selected>Status</option>
                                             <option value='success'>Success</option>
                                             <option value='Some mapping fields cannot be found in the input file.'>Some mapping fields cannot be found in the input file.</option>
@@ -107,9 +105,9 @@ class NotificationScreen extends React.Component {
                                         </select>
                                     </div>
                                     <div className="input-field">
-                                        <select className="browser-default" onChange={(e) => { this.filterClient(e) }}>
+                                        <select className="browser-default" onChange={(e) => this.filterClient(e)}>
                                             <option value='' selected>Client Code</option>
-                                            {clients && clients.map(client => {
+                                            {clients.map(client => {
                                                 return <option value={client.id}>Client {client.id}</option>
                                             })}
                                         </select>

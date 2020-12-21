@@ -15,12 +15,15 @@ class FTPScreen extends React.Component {
     };
 
     componentDidMount() {
+        this.setState({
+            clientCode: this.props.match.params.id
+        });
+
         // get that client's ftp servers
         axios.get('/ftps').then(response => {
             if (response.data.length > 0) {
                 this.setState({
-                    ftps: response.data.filter(ftp => ftp.clientCode === this.props.match.params.id),
-                    clientCode: this.props.match.params.id
+                    ftps: response.data.filter(ftp => ftp.clientCode === this.props.match.params.id)
                 });
             }
         }).catch(error => console.log(error));
@@ -46,7 +49,7 @@ class FTPScreen extends React.Component {
             .catch(error => console.log(error));
 
         this.setState({
-            ftps: this.state.ftps.filter(el => el._id !== id)
+            ftps: this.state.ftps.filter(el => el.id !== id)
         });
     };
 

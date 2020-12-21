@@ -41,7 +41,7 @@ router.route('/:id').get(async (req, res) => {
 });
 
 // delete client
-router.route('/:id').delete((req, res) => {
+router.route('/:id').delete(async (req, res) => {
     db.collection('dictionary').doc(req.params.id).delete();
     db.collection('default value').doc(req.params.id).delete();
     db.collection('clients').doc(req.params.id).delete();
