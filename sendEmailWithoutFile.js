@@ -3,7 +3,7 @@ const nodeoutlook = require('nodejs-nodemailer-outlook');
 // Firebase
 const db = require('./firebase/firebase');
 
-function sendEmailWithoutFile(message) {
+sendEmailWithoutFile = (message) => {
     db.collection('admins').get().then(querySnapshot => {
         let docs = querySnapshot.docs
         for (let doc of docs) {

@@ -13,7 +13,7 @@ const fs = require('fs');
 const data = require("./data/magellanField");
 var sendEmail = require('./sendEmail');
 
-async function runCsvToXML(file, clientId, host) {
+runCsvToXML = async (file, clientId, host) => {
     // Read Dictionary Collection
     let dictionaryResponse = [];
     await db.collection('dictionary').doc(clientId).get().then(doc => {
@@ -172,7 +172,7 @@ async function runCsvToXML(file, clientId, host) {
             const inputpath1 = __dirname + `\\ftpserver\\${host}\\IN\\` + file
             const errorpath = __dirname + `\\ftpserver\\${host}\\ERR\\` + file
             // Write to the error directory
-            fs.copyFile(inputpath1, errorpath, function (err) {
+            fs.copyFile(inputpath1, errorpath, (err) => {
                 if (err) return console.log(err);
                 console.log("The file was saved in error folder");
             });
@@ -366,12 +366,12 @@ async function runCsvToXML(file, clientId, host) {
         const outputpath = __dirname + `\\ftpserver\\${host}\\OUT\\` + xmlFilename
         const inputpath2 = __dirname + `\\ftpserver\\${host}\\IN\\` + file
         // Write to the process directory
-        fs.copyFile(inputpath2, processpath, function (err) {
+        fs.copyFile(inputpath2, processpath, (err) => {
             if (err) return console.log(err);
             console.log("The file was saved in process folder");
         });
         // Write to the output directory
-        fs.writeFile(outputpath, xmlContent, function (err) {
+        fs.writeFile(outputpath, xmlContent, (err) => {
             if (err) return console.log(err);
             console.log("The file was saved in output folder");
         });

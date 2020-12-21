@@ -30,9 +30,7 @@ var sendEmailWithoutFile = require('./sendEmailWithoutFile');
 // Create a new express application named 'app'
 const app = express();
 
-function csvToXml(clientCode, host) {
-    // Problem: If folder doesn't exist, make a directory.
-
+csvToXml = (clientCode, host) => {
     // Process Path
     const processpath = path.join(__dirname, `\\ftpserver\\${host}\\PROC\\`);
     const errorpath = path.join(__dirname, `\\ftpserver\\${host}\\ERR\\`);
@@ -40,29 +38,27 @@ function csvToXml(clientCode, host) {
 
     fs.mkdir(processpath, (err) => {
         if (err) return console.error(err);
-        console.log('Directory created sucessfully');
+        console.log('Process directory created sucessfully');
     });
 
     fs.mkdir(errorpath, (err) => {
         if (err) return console.error(err);
-        console.log('Directory created sucessfully');
+        console.log('Error directory created sucessfully');
     });
 
     fs.mkdir(outputpath, (err) => {
         if (err) return console.error(err);
-        console.log('Directory created sucessfully');
+        console.log('Output directory created sucessfully');
     });
 
     const directoryPath = path.join(__dirname, `ftpserver\\${host}\\IN`);
-    fs.readdir(directoryPath, function (err, files) {
+    fs.readdir(directoryPath, (err, files) => {
         if (err) return console.log("Unable to scan directory: " + err);
-        files.forEach(function (file) {
-            runCsvToXML(file, clientCode, host);
-        });
+        files.forEach(file => runCsvToXML(file, clientCode, host));
     })
 }
 
-async function readFromFTP(doc) {
+readFromFTP = async (doc) => {
     const client = new ftp.Client();
     client.ftp.verbose = false
     try {
@@ -81,7 +77,7 @@ async function readFromFTP(doc) {
         await client.downloadToDir(`ftpserver\\${doc.host}\\IN`, doc.pathInputs);
         // Delete input folder.
         await client.ensureDir(doc.pathInputs);
-        await client.clearWorkingDir().then(() => { csvToXml(doc.clientCode, doc.host) });
+        await client.clearWorkingDir().then(() => csvToXml(doc.clientCode, doc.host));
     }
     catch (err) {
         // Error Message 1: Cannot Connect to FTP Server
@@ -101,7 +97,7 @@ async function readFromFTP(doc) {
     client.close();
 }
 
-async function uploadtoFTP(doc) {
+uploadtoFTP = async (doc) => {
     const client = new ftp.Client();
     client.ftp.verbose = false
     try {
@@ -121,7 +117,7 @@ async function uploadtoFTP(doc) {
 
         // Clear local ftpserver directory
         const thePath = path.join(__dirname, `ftpserver\\${doc.host}`);
-        rimraf(thePath, function () { console.log('Deleted Local Host Address Directory') });
+        rimraf(thePath, () => console.log('Deleted Local Host Address Directory'));
     }
     catch (err) { console.log(err) }
     client.close();
@@ -130,16 +126,15 @@ async function uploadtoFTP(doc) {
 // cron job every minute
 // Optimize Idea 1: Should read 1 file at a time to prevent the case that 
 // the client was entering a new input file while the system is processing.
-cron.schedule("* * * * *", function () {
+cron.schedule("* * * * *", () => {
     console.log("Running Cron Job");
     // Delete notification's documents that are older than 1 year
     const now = Date.now();
     // Every 10 minutes
     const cutoff = new Date(now - 10 * 60 * 1000);
     db.collection('notifications').orderBy('time').endAt(cutoff).get()
-        .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                console.log("Doc: " + doc.data());
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
                 doc.ref.delete();
             });
         });
@@ -150,7 +145,7 @@ cron.schedule("* * * * *", function () {
         // Problem: Currently can only run with 1 FTP server.
         for (let doc of docs) {
             readFromFTP(doc.data());
-            setTimeout(() => { uploadtoFTP(doc.data()) }, 5000);
+            setTimeout(() => uploadtoFTP(doc.data()), 5000);
         }
     });
 });

@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
                                     some information including: the notification type and the client code</div>
                                 </div>
                                 <div className="col s6">
-                                    <img style={{ width: 480, borderRadius: 10 }} src={notiImage} />
+                                    <img style={{ width: 480, borderRadius: 10 }} src={notiImage} alt={notiImage} />
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
                             <h4>Saved Mapping</h4>
                             <div className="row">
                                 <div className="col s6">
-                                    <img style={{ width: 480, borderRadius: 10 }} src={savedImage} />
+                                    <img style={{ width: 480, borderRadius: 10 }} src={savedImage} alt={savedImage} />
                                 </div>
                                 <div className="col s6" style={{ fontSize: 18 }}>
                                     <div>This screen shows all the saved mapping information
@@ -93,7 +93,7 @@ class Dashboard extends React.Component {
                                     from the dropdownlist, and dropping a CSV file containing all mapping information of the client</div>
                                 </div>
                                 <div className="col s6">
-                                    <img style={{ width: 480, borderRadius: 10 }} src={dropzoneImage} />
+                                    <img style={{ width: 480, borderRadius: 10 }} src={dropzoneImage} alt={dropzoneImage} />
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@ class Dashboard extends React.Component {
                             <h4>Clients</h4>
                             <div className="row">
                                 <div className="col s6">
-                                    <img style={{ width: 480, borderRadius: 10 }} src={clientImage} />
+                                    <img style={{ width: 480, borderRadius: 10 }} src={clientImage} alt={clientImage} />
                                 </div>
                                 <div className="col s6" style={{ fontSize: 18 }}>
                                     <div>This screen shows all the client information stored in the system's database</div>
@@ -124,7 +124,7 @@ class Dashboard extends React.Component {
                                     <div>The user can add, edit, or delete the FTP server's information</div>
                                 </div>
                                 <div className="col s6">
-                                    <img style={{ width: 480, borderRadius: 10 }} src={serverImage} />
+                                    <img style={{ width: 480, borderRadius: 10 }} src={serverImage} alt={serverImage} />
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ class Dashboard extends React.Component {
                             <h4>Admins</h4>
                             <div className="row">
                                 <div className="col s6">
-                                    <img style={{ width: 480, borderRadius: 10 }} src={adminImage} />
+                                    <img style={{ width: 480, borderRadius: 10 }} src={adminImage} alt={adminImage} />
                                 </div>
                                 <div className="col s6" style={{ fontSize: 18 }}>
                                     <div>This screen shows all admins' email address. Whenever an error occurs within the system,

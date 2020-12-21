@@ -3,7 +3,8 @@
 import React from 'react';
 
 const NotificationSummary = ({ notification }) => {
-    if (notification.notificationType === 'Mandatory fields missing' || notification.notificationType === 'Some mapping fields cannot be found in the input file.') {
+    if (notification.notificationType === 'Mandatory fields missing'
+        || notification.notificationType === 'Some mapping fields cannot be found in the input file.') {
         return (
             <div className="card" style={{ borderRadius: 10 }}>
                 <div className="card-content">

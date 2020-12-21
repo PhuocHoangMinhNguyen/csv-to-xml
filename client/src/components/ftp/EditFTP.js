@@ -87,8 +87,8 @@ class EditFTP extends React.Component {
                                     <input type="text" id="pathProcess" onChange={this.handleChange} />
                                 </div>
                                 <div className="input-field">
-                                    <label htmlFor="id">FTP Error Path</label>
-                                    <input type="text" id="id" onChange={this.handleChange} />
+                                    <label htmlFor="pathError">FTP Error Path</label>
+                                    <input type="text" id="pathError" onChange={this.handleChange} />
                                 </div>
                                 <div className="input-field">
                                     <label htmlFor="pathOutputs">FTP Output Path</label>
