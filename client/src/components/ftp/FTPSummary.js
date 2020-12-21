@@ -6,7 +6,7 @@ import { Icon } from 'react-materialize';
 
 class FTPSummary extends React.Component {
     render() {
-        const { ftp, onRemove } = this.props
+        const { ftp, onRemove } = this.props;
         return (
             <div className="card" style={{ borderRadius: 10 }}>
                 <div className="card-content">
@@ -14,10 +14,7 @@ class FTPSummary extends React.Component {
                         <Icon>delete</Icon>
                     </div>
                     <Link className="right" style={{ color: "#0078bf" }}
-                        to={{
-                            pathname: '/ftp-edit',
-                            state: { ftp: ftp }
-                        }}>
+                        to={'/ftp-edit/' + ftp.id}>
                         <Icon>edit</Icon>
                     </Link>
                     <h5>Host Address: {ftp.host}</h5>

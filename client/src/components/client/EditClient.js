@@ -10,13 +10,11 @@ class EditClient extends React.Component {
     };
 
     componentDidMount() {
-        axios.get('/clients/' + this.props.location.state.client.id)
-            .then(response => {
-                this.setState({
-                    id: response.data.id,
-                    clientName: response.data.clientName,
-                });
-            }).catch(error => console.log(error));
+        axios.get('/clients/' + this.props.match.params.id)
+            .then(response => this.setState({
+                id: response.data.id,
+                clientName: response.data.clientName,
+            })).catch(error => console.log(error));
     };
 
     handleChange = (e) => {
@@ -32,11 +30,9 @@ class EditClient extends React.Component {
             }
             // edit client
             axios.post('/clients/edit/' + id, theClient)
-                .then(res => res.data)
+                .then(res => console.log(res.data))
                 .catch(error => console.log(error));
-        } else {
-            alert('Please Enter All Fields to Edit Client Information');
-        };
+        } else alert('Please Enter All Fields to Edit Client Information');
     };
 
     render() {

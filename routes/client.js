@@ -27,9 +27,9 @@ router.route('/create').post((req, res) => {
 });
 
 // find by id
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(async (req, res) => {
     let defaultResponse = null;
-    db.collection('clients').doc(req.params.id).get()
+    await db.collection('clients').doc(req.params.id).get()
         .then(documentSnapshot => {
             const selectedItem = {
                 id: documentSnapshot.id,

@@ -64,7 +64,9 @@ class DropFile extends React.Component {
                     .then(res => console.log(res.data));
 
                 alert("Data Stored in Firestore");
+
                 window.location = "/mapping";
+
             } else alert("Please Drop a Mapping File");
         } else alert('Please Choose Client Code');
     }

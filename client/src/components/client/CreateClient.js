@@ -21,9 +21,7 @@ class CreateClient extends React.Component {
                 .then(res => console.log(res.data))
                 .then(() => alert("Data Stored in Firestore"))
                 .catch(error => console.log(error));
-        } else {
-            alert('Please Enter All Fields');
-        };
+        } else alert('Please Enter All Fields');
     };
 
     render() {

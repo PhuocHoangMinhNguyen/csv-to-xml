@@ -3,9 +3,9 @@ const router = require('express').Router();
 const db = require('../firebase/firebase');
 
 // get client's default values
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(async (req, res) => {
     let defaultResponse = [];
-    db.collection('default value').doc(req.params.id).get().then(doc => {
+    await db.collection('default value').doc(req.params.id).get().then(doc => {
         if (doc.data()) {
             for (let i = 0; i < doc.data().magellanField.length; i++) {
                 const selectedItem = {

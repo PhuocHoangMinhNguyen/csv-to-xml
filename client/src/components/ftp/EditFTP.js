@@ -5,41 +5,46 @@ import axios from 'axios';
 
 class EditFTP extends React.Component {
     state = {
-        clientCode: '',
         id: '',
-        host: '',
-        port: '',
-        pathInputs: '',
-        pathProcess: '',
-        pathError: '',
-        pathOutputs: '',
-        user: '',
-        password: '',
+        ftp: {
+            clientCode: '',
+            host: '',
+            port: '',
+            pathInputs: '',
+            pathProcess: '',
+            pathError: '',
+            pathOutputs: '',
+            user: '',
+            password: '',
+        }
     };
 
     componentDidMount() {
+        // get ftp server info
+        axios.get('/ftps/' + this.props.match.params.id)
+            .then(response => this.setState({
+                id: this.props.match.params.id,
+                ftp: response.data
+            }))
+            .catch(error => console.log(error));
+    };
+
+    // Change
+    handleChange = e => {
         this.setState({
-            clientCode: this.props.location.state.ftp.clientCode,
-            id: this.props.location.state.ftp.id,
-            host: this.props.location.state.ftp.host,
-            port: this.props.location.state.ftp.port,
-            pathInputs: this.props.location.state.ftp.pathInputs,
-            pathProcess: this.props.location.state.ftp.pathProcess,
-            pathError: this.props.location.state.ftp.pathError,
-            pathOutputs: this.props.location.state.ftp.pathOutputs,
-            user: this.props.location.state.ftp.user,
-            password: this.props.location.state.ftp.password,
+            ftp: {
+                ...this.state.ftp,
+                [e.target.id]: e.target.value
+            }
         });
     };
 
-    handleChange = e => this.setState({ [e.target.id]: e.target.value });
-
     handleSubmit = () => {
-        const { id, host, port, pathInputs, pathProcess, pathError, pathOutputs, clientCode, user, password } = this.state
+        const { id } = this.state;
+        const { host, port, pathInputs, pathProcess, pathError, pathOutputs, clientCode, user, password } = this.state.ftp
         if (host !== '' && port !== '' && pathInputs !== '' && pathProcess !== '' && pathError !== ''
             && pathOutputs !== '' && clientCode !== '' && user !== '' && password !== '') {
             const theFTP = {
-                id: id,
                 host: host,
                 port: port,
                 pathInputs: pathInputs,
@@ -57,7 +62,7 @@ class EditFTP extends React.Component {
     };
 
     render() {
-        const { clientCode } = this.state
+        const { clientCode } = this.state.ftp
         return (
             <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
                 <div className="container section">
@@ -100,7 +105,7 @@ class EditFTP extends React.Component {
                                 <Link onClick={(e) => this.handleSubmit(e)}
                                     className="btn lighten-1 z-depth-0 right"
                                     style={{ backgroundColor: "#0078bf" }}
-                                    to={'/ftp-screen'}>Save</Link>
+                                    to={'/ftp/' + clientCode}>Save</Link>
                             </form>
                         </div>
                     </div>

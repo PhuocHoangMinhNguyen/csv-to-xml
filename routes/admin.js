@@ -3,9 +3,9 @@ const router = require('express').Router();
 const db = require('../firebase/firebase');
 
 // get admin list
-router.route('/').get((req, res) => {
+router.route('/').get(async (req, res) => {
     let defaultResponse = [];
-    db.collection('admins').get().then(querySnapshot => {
+    await db.collection('admins').get().then(querySnapshot => {
         let docs = querySnapshot.docs
         for (let doc of docs) {
             const selectedItem = {

@@ -31,9 +31,9 @@ class App extends React.Component {
             <Route path="/mapping-drop-file" component={DropFile} />
             <Route path="/mapping" component={Mapping} />
             <Route path="/client" component={ClientScreen} />
-            <Route path="/client-edit" component={EditClient} />
-            <Route path="/ftp" component={FTPScreen} />
-            <Route path="/ftp-edit" component={EditFTP} />
+            <Route path="/client-edit/:id" component={EditClient} />
+            <Route path="/ftp/:id" component={FTPScreen} />
+            <Route path="/ftp-edit/:id" component={EditFTP} />
             <Route path="/admin" component={Admin} />
           </Switch>
         </div>

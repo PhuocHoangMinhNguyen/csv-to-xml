@@ -34,7 +34,7 @@ class CreateFTP extends React.Component {
                 password: password,
             }
             // create ftp server
-            axios.post('/ftps/create', created).then(res => res.data)
+            axios.post('/ftps/create', created).then(res => console.log(res.data))
                 .then(() => alert("Data Stored in Firestore"))
                 .catch(error => console.log(error));
         } else alert("Please Enter All Fields");

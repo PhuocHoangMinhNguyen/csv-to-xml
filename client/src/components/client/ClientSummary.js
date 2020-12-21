@@ -14,18 +14,12 @@ class ClientSummary extends React.Component {
                         <Icon>delete</Icon>
                     </div>
                     <Link className="right" style={{ color: "#0078bf" }}
-                        to={{
-                            pathname: '/client-edit',
-                            state: { client: client }
-                        }}>
+                        to={'/client-edit/' + client.id}>
                         <Icon>edit</Icon>
                     </Link>
                     <Link className="right"
                         style={{ fontSize: 18, color: '#0078bf' }}
-                        to={{
-                            pathname: '/ftp',
-                            state: { client: client }
-                        }}>FTP</Link>
+                        to={'/ftp/' + client.id}>FTP</Link>
                     <h5>Client Code: {client.id}</h5>
                     <p>Client Name: {client.clientName}</p>
                 </div>

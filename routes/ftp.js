@@ -3,9 +3,9 @@ const router = require('express').Router();
 const db = require('../firebase/firebase');
 
 // get ftp server list
-router.route('/').get((req, res) => {
+router.route('/').get(async (req, res) => {
     let defaultResponse = [];
-    db.collection('ftps').get().then(querySnapshot => {
+    await db.collection('ftps').get().then(querySnapshot => {
         let docs = querySnapshot.docs
         for (let doc of docs) {
             const selectedItem = {
@@ -33,9 +33,26 @@ router.route('/create').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// find by id
+router.route('/:id').get(async (req, res) => {
+    let defaultResponse = {};
+    await db.collection('ftps').doc(req.params.id).get()
+        .then(documentSnapshot => {
+            defaultResponse = documentSnapshot.data()
+        });
+    res.json(defaultResponse);
+});
+
+// delete ftp server
+router.route('/:id').delete((req, res) => {
+    db.collection('ftps').doc(req.params.id).delete()
+        .then(() => res.json('FTP Server Deleted!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 // edit ftp server
 router.route('/edit/:id').post((req, res) => {
-    db.collection('ftps').doc(req.body.id).set({
+    db.collection('ftps').doc(req.params.id).set({
         host: req.body.host,
         port: req.body.port,
         pathInputs: req.body.pathInputs,
@@ -46,13 +63,6 @@ router.route('/edit/:id').post((req, res) => {
         user: req.body.user,
         password: req.body.password
     }, { merge: true }).then(() => res.json('Ftp Server edited!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
-// delete ftp server
-router.route('/:id').delete((req, res) => {
-    db.collection('ftps').doc(req.params.id).delete()
-        .then(() => res.json('FTP Server Deleted!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

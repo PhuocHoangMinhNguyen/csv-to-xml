@@ -15,19 +15,15 @@ class FTPScreen extends React.Component {
     };
 
     componentDidMount() {
-        setTimeout(async () => {
-            // get client by id
-            await axios.get('/clients/' + this.props.location.state.client.id)
-                .then(response => this.setState({ clientCode: response.data.id }))
-                .catch(error => console.log(error));
-
-            // get that client's ftp servers
-            await axios.get('/ftps').then(response => {
-                if (response.data.length > 0) {
-                    this.setState({ ftps: response.data.map(ftp => ftp.clientCode) })
-                }
-            }).catch(error => console.log(error));
-        }, 100);
+        // get that client's ftp servers
+        axios.get('/ftps').then(response => {
+            if (response.data.length > 0) {
+                this.setState({
+                    ftps: response.data.filter(ftp => ftp.clientCode === this.props.match.params.id),
+                    clientCode: this.props.match.params.id
+                });
+            }
+        }).catch(error => console.log(error));
     };
 
     handleRemove = id => {
@@ -36,22 +32,22 @@ class FTPScreen extends React.Component {
             message: 'Are you sure you want to delete the FTP server?',
             buttons: [{
                 label: 'Delete',
-                onClick: () => { this.handleYes(id) }
+                onClick: () => this.handleYes(id)
             }, {
                 label: 'Cancel',
-                onClick: () => { alert('Delete Action Canceled') }
+                onClick: () => alert('Delete Action Canceled')
             }]
         });
     };
 
     handleYes = id => {
         // delete ftp server
-        axios.delete('/ftps/' + id).then(res => res.data)
+        axios.delete('/ftps/' + id).then(res => console.log(res.data))
             .catch(error => console.log(error));
 
         this.setState({
             ftps: this.state.ftps.filter(el => el._id !== id)
-        })
+        });
     };
 
     render() {
@@ -67,8 +63,8 @@ class FTPScreen extends React.Component {
                                     <h5>{`Client: ${clientCode}`}</h5>
                                 </div>
                             </div>
-                            {ftps && ftps.map(ftp => {
-                                return (<FTPSummary ftp={ftp} onRemove={() => this.handleRemove(ftp.id)} />)
+                            {ftps.map(ftp => {
+                                return <FTPSummary ftp={ftp} onRemove={() => this.handleRemove(ftp.id)} />;
                             })}
                         </div>
                     </div>

@@ -5,9 +5,9 @@ const db = require('../firebase/firebase');
 const moment = require('moment');
 
 // Dashboard.js
-router.route('/').get((req, res) => {
+router.route('/').get(async (req, res) => {
   let defaultResponse = [];
-  db.collection('notifications').get().then(querySnapshot => {
+  await db.collection('notifications').get().then(querySnapshot => {
     let docs = querySnapshot.docs
     for (let doc of docs) {
       const selectedItem = {

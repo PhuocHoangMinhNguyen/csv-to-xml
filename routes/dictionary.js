@@ -3,9 +3,9 @@ const router = require('express').Router();
 const db = require('../firebase/firebase');
 
 // get client's dictionary
-router.route('/:id').get((req, res) => {
+router.route('/:id').get(async (req, res) => {
     let defaultResponse = [];
-    db.collection('dictionary').doc(req.params.id).get().then(doc => {
+    await db.collection('dictionary').doc(req.params.id).get().then(doc => {
         if (doc.data()) {
             for (let i = 0; i < doc.data().customerField.length; i++) {
                 const selectedItem = {
@@ -22,8 +22,8 @@ router.route('/:id').get((req, res) => {
 });
 
 // save client's dictionary
-router.route('/save').post(async (req, res) => {
-    await db.collection('dictionary').doc(req.body.client).set(req.body.dictionaryV)
+router.route('/save').post((req, res) => {
+    db.collection('dictionary').doc(req.body.client).set(req.body.dictionaryV)
         .then(() => res.json('Client Dictionary Saved!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });

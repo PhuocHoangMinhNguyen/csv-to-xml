@@ -12,7 +12,7 @@ class Dictionary extends React.Component {
         clients: [],
     };
 
-    dicdef = (clientId) => {
+    dicdef = clientId => {
         // in routes/mapping.js
         axios.get('/dictionary/' + clientId).then(response => {
             this.setState({ existDictionary: response.data });
