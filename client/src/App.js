@@ -27,14 +27,14 @@ class App extends React.Component {
           <NavBar />
           <Switch>
             <Route exact path='/' component={Dashboard} />
-            <Route path="/notification-screen" component={NotificationScreen} />
-            <Route path="/mapping-drop-file-screen" component={DropFile} />
-            <Route path="/mapping-screen" component={Mapping} />
-            <Route path="/client-screen" component={ClientScreen} />
-            <Route path="/client-edit-screen" component={EditClient} />
-            <Route path="/ftp-screen" component={FTPScreen} />
-            <Route path="/ftp-edit-screen" component={EditFTP} />
-            <Route path="/admin-screen" component={Admin} />
+            <Route path="/notification" component={NotificationScreen} />
+            <Route path="/mapping-drop-file" component={DropFile} />
+            <Route path="/mapping" component={Mapping} />
+            <Route path="/client" component={ClientScreen} />
+            <Route path="/client-edit" component={EditClient} />
+            <Route path="/ftp" component={FTPScreen} />
+            <Route path="/ftp-edit" component={EditFTP} />
+            <Route path="/admin" component={Admin} />
           </Switch>
         </div>
       </BrowserRouter>

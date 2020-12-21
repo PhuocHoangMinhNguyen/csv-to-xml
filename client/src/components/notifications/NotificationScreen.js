@@ -15,16 +15,17 @@ class NotificationScreen extends React.Component {
     };
 
     componentDidMount = () => {
-        // in routes/notification.js
-        axios.get('/notification').then(res => {
+        // get notification list
+        axios.get('/notifications').then(res => {
             this.setState({ notifications: res.data });
             this.setState({ currentNotifications: res.data });
-        });
-        // in routes/client.js
-        axios.get('/client').then(res => this.setState({ clients: res.data }));
+        }).catch(error => console.log(error));
+        // get client list
+        axios.get('/clients').then(res => this.setState({ clients: res.data }))
+            .catch(error => console.log(error));
     };
 
-    filterStatus = (e) => {
+    filterStatus = e => {
         this.setState({ chosenStatus: e.target.value });
         if (e.target.value === '') {
             if (this.state.chosenClient === '') {
@@ -54,7 +55,7 @@ class NotificationScreen extends React.Component {
         };
     };
 
-    filterClient = (e) => {
+    filterClient = e => {
         this.setState({ chosenClient: e.target.value });
         if (e.target.value === '') {
             if (this.state.chosenStatus === '') {

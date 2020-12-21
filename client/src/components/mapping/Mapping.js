@@ -5,45 +5,30 @@ import MappingSideBar from '../layout/MappingSideBar';
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 
-// Idea:
-// - Search
-// - Sort
-// - Edit
-// - Add values
-
 class Dictionary extends React.Component {
     state = {
         existDictionary: [],
         existDefaultValue: [],
-        clients: null,
+        clients: [],
     };
 
     dicdef = (clientId) => {
-        const clientJson = {
-            id: clientId
-        }
         // in routes/mapping.js
-        fetch('/mapping/dic', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clientJson)
-        }).then(response => response.json())
-            .then(resp => {
-                this.setState({ existDictionary: resp });
-            });
+        axios.get('/dictionary/' + clientId).then(response => {
+            this.setState({ existDictionary: response.data });
+        }).catch(error => console.log(error));
 
         // in routes/mapping.js
-        fetch('/mapping/def', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clientJson)
-        }).then(response => response.json())
-            .then(resp => { this.setState({ existDefaultValue: resp }) });
+        axios.get('/defaultvalue/' + clientId).then(response => {
+            this.setState({ existDefaultValue: response.data });
+        }).catch(error => console.log(error));
     };
 
     componentDidMount() {
-        // in routes/client.js
-        axios.get('/client').then(res => this.setState({ clients: res.data }));
+        // get client list.
+        axios.get('/clients').then(response => {
+            this.setState({ clients: response.data });
+        }).catch(error => console.log(error));
     };
 
     render() {
@@ -61,7 +46,7 @@ class Dictionary extends React.Component {
                                         this.dicdef(e.target.value);
                                     }}>
                                         <option value="" disabled selected>Choose client code to view: </option>
-                                        {clients && clients.map(client => {
+                                        {clients.map(client => {
                                             return <option value={client.id}>Client {client.id}</option>
                                         })}
                                     </select>

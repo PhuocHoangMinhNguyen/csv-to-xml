@@ -6,15 +6,16 @@ import axios from 'axios';
 
 class AdminList extends React.Component {
     state = {
-        admins: null,
+        admins: [],
     };
 
     componentDidMount() {
-        // in routes/admin.js
-        axios.get('/admin').then(res => this.setState({ admins: res.data }));
+        // get admin list
+        axios.get('/admins').then(res => this.setState({ admins: res.data }))
+            .catch(error => console.log(error));
     };
 
-    handleRemove = (id) => {
+    handleRemove = id => {
         confirmAlert({
             title: 'Confirm to delete',
             message: 'Are you sure you want to delete the admin?',
@@ -28,20 +29,23 @@ class AdminList extends React.Component {
         });
     };
 
-    handleYes = (id) => {
-        const admin = {
-            id: id
-        };
-        axios.post('/admin/delete', { id: id })
-            .then(res => this.setState({ admins: res.data }));
+    handleYes = id => {
+        // delete admin
+        axios.delete('/admins/' + id)
+            .then(res => console.log(res.data))
+            .catch(error => console.log(error));
+
+        this.setState({
+            admins: this.state.admins.filter(el => el.id !== id)
+        });
     };
 
     render() {
         const { admins } = this.state
         return (
             <div className="section">
-                {admins && admins.map(admin => {
-                    return (<AdminSummary admin={admin} onRemove={() => this.handleRemove(admin.id)} />)
+                {admins.map(admin => {
+                    return <AdminSummary admin={admin} onRemove={() => this.handleRemove(admin.id)} />
                 })}
             </div>
         );

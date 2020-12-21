@@ -1,12 +1,11 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 // Firebase
 const db = require('../firebase/firebase');
 
-// AdminList.js
-router.get('/', async (req, res) => {
+// get admin list
+router.route('/').get((req, res) => {
     let defaultResponse = [];
-    await db.collection('admins').get().then(querySnapshot => {
+    db.collection('admins').get().then(querySnapshot => {
         let docs = querySnapshot.docs
         for (let doc of docs) {
             const selectedItem = {
@@ -19,26 +18,18 @@ router.get('/', async (req, res) => {
     res.json(defaultResponse);
 });
 
-// AdminList.js
-router.post('/delete', async (req, res) => {
-    await db.collection('admins').doc(req.body.id).delete();
-    let defaultResponse = [];
-    await db.collection('admins').get().then(querySnapshot => {
-        let docs = querySnapshot.docs
-        for (let doc of docs) {
-            const selectedItem = {
-                id: doc.id,
-                email: doc.data().email
-            }
-            defaultResponse.push(selectedItem);
-        }
-    });
-    res.json(defaultResponse);
+// create new admin
+router.route('/create').post((req, res) => {
+    db.collection('admins').add({ email: req.body.email })
+        .then(() => res.json('Admin added!.'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// CreateAdmin.js
-router.post('/create', async (req, res) => {
-    await db.collection('admins').add({ email: req.body.email });
+// delete admin
+router.route('/:id').delete((req, res) => {
+    db.collection('admins').doc(req.params.id).delete()
+        .then(() => res.json('Exercise deleted.'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;

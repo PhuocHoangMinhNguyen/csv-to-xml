@@ -10,10 +10,13 @@ class EditClient extends React.Component {
     };
 
     componentDidMount() {
-        this.setState({
-            id: this.props.location.state.client.id,
-            clientName: this.props.location.state.client.clientName,
-        });
+        axios.get('/clients/' + this.props.location.state.client.id)
+            .then(response => {
+                this.setState({
+                    id: response.data.id,
+                    clientName: response.data.clientName,
+                });
+            }).catch(error => console.log(error));
     };
 
     handleChange = (e) => {
@@ -27,12 +30,10 @@ class EditClient extends React.Component {
                 id: id,
                 clientName: clientName
             }
-            // in routes/client.js
-            fetch('/client/edit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(theClient)
-            }).then(response => response.json());
+            // edit client
+            axios.post('/clients/edit/' + id, theClient)
+                .then(res => res.data)
+                .catch(error => console.log(error));
         } else {
             alert('Please Enter All Fields to Edit Client Information');
         };
@@ -54,7 +55,7 @@ class EditClient extends React.Component {
                                 <Link onClick={(e) => this.handleSubmit(e)}
                                     className="btn lighten-1 z-depth-0 right"
                                     style={{ backgroundColor: "#0078bf" }}
-                                    to={'/client-screen'}>Save</Link>
+                                    to={"/client"}>Save</Link>
                             </form>
                         </div>
                     </div>

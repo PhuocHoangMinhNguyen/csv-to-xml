@@ -15,7 +15,7 @@ class FTPSummary extends React.Component {
                     </div>
                     <Link className="right" style={{ color: "#0078bf" }}
                         to={{
-                            pathname: '/ftp-edit-screen',
+                            pathname: '/ftp-edit',
                             state: { ftp: ftp }
                         }}>
                         <Icon>edit</Icon>

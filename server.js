@@ -18,11 +18,11 @@ const rimraf = require('rimraf');
 const moment = require('moment');
 
 var notificationRouter = require('./routes/notification');
-var mappingRouter = require('./routes/mapping');
 var clientRouter = require('./routes/client');
 var ftpRouter = require('./routes/ftp');
 var adminRouter = require('./routes/admin');
-var currentRouter = require('./routes/currentClient');
+var dictionaryRouter = require('./routes/dictionary');
+var defaultRouter = require('./routes/defaultvalue');
 
 var runCsvToXML = require('./csvToXml');
 var sendEmailWithoutFile = require('./sendEmailWithoutFile');
@@ -134,8 +134,8 @@ cron.schedule("* * * * *", function () {
     console.log("Running Cron Job");
     // Delete notification's documents that are older than 1 year
     const now = Date.now();
-    // Every year
-    const cutoff = new Date(now - 365 * 24 * 60 * 60 * 1000);
+    // Every 10 minutes
+    const cutoff = new Date(now - 10 * 60 * 1000);
     db.collection('notifications').orderBy('time').endAt(cutoff).get()
         .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
@@ -166,19 +166,17 @@ app.use((req, res, next) => {
 
 // Configure the bodyParser middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure the CORs middleware
 app.use(cors());
 
-app.use('/notification', notificationRouter);
-app.use('/mapping', mappingRouter);
-app.use('/client', clientRouter);
-app.use('/ftp', ftpRouter);
-app.use('/admin', adminRouter);
-app.use('/current', currentRouter);
+app.use('/notifications', notificationRouter);
+app.use('/clients', clientRouter);
+app.use('/ftps', ftpRouter);
+app.use('/admins', adminRouter);
+app.use('/dictionary', dictionaryRouter);
+app.use('/defaultvalue', defaultRouter);
 
 // This middleware informs the express application to serve our compiled React files
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
@@ -191,9 +189,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 
 // Catch any bad requests
 app.get('*', (req, res) => {
-    res.status(200).json({
-        msg: 'Catch All'
-    });
+    res.status(200).json({ msg: 'Catch All' });
 });
 
 // Configure our server to listen on the port defiend by our port variable

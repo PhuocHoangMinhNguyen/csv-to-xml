@@ -14,8 +14,9 @@ class DropFile extends React.Component {
     };
 
     componentDidMount() {
-        // in routes/client.js
-        axios.get('/client').then(res => this.setState({ clients: res.data }));
+        // get client list
+        axios.get('/clients').then(res => this.setState({ clients: res.data }))
+            .catch(error => console.log(error));
     };
 
     handleSave = () => {
@@ -51,24 +52,19 @@ class DropFile extends React.Component {
                     client: chosenClient
                 };
                 // in routes/mapping.js
-                fetch('/mapping/savedic', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dictionaryInfo)
-                }).then(response => response.json());
+                axios.post('/dictionary/save', dictionaryInfo)
+                    .then(res => console.log(res.data));
 
                 const defaultInfo = {
                     defaultV: processDefaultValues,
                     client: chosenClient
                 };
                 // in routes/mapping.js
-                fetch('/mapping/savedef', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(defaultInfo)
-                }).then(response => response.json());
+                axios.post('/defaultvalue/save', defaultInfo)
+                    .then(res => console.log(res.data));
 
                 alert("Data Stored in Firestore");
+                window.location = "/mapping";
             } else alert("Please Drop a Mapping File");
         } else alert('Please Choose Client Code');
     }

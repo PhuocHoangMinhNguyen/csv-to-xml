@@ -1,14 +1,13 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 // Firebase
 const db = require('../firebase/firebase');
 // Moment
 const moment = require('moment');
 
 // Dashboard.js
-router.get('/', async (req, res) => {
+router.route('/').get((req, res) => {
   let defaultResponse = [];
-  await db.collection('notifications').get().then(querySnapshot => {
+  db.collection('notifications').get().then(querySnapshot => {
     let docs = querySnapshot.docs
     for (let doc of docs) {
       const selectedItem = {

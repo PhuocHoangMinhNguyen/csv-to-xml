@@ -16,19 +16,21 @@ class FTPScreen extends React.Component {
 
     componentDidMount() {
         setTimeout(async () => {
-            // in routes/currentClient.js
-            await axios.get('/current/getcurrentclient').then(res => this.setState({ clientCode: res.data.clientCode }));
-            // in routes/ftp.js
-            await fetch('/ftp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ clientCode: this.state.clientCode })
-            }).then(response => response.json())
-                .then(resp => { this.setState({ ftps: resp }) });
+            // get client by id
+            await axios.get('/clients/' + this.props.location.state.client.id)
+                .then(response => this.setState({ clientCode: response.data.id }))
+                .catch(error => console.log(error));
+
+            // get that client's ftp servers
+            await axios.get('/ftps').then(response => {
+                if (response.data.length > 0) {
+                    this.setState({ ftps: response.data.map(ftp => ftp.clientCode) })
+                }
+            }).catch(error => console.log(error));
         }, 100);
     };
 
-    handleRemove = (id) => {
+    handleRemove = id => {
         confirmAlert({
             title: 'Confirm to delete',
             message: 'Are you sure you want to delete the FTP server?',
@@ -42,17 +44,14 @@ class FTPScreen extends React.Component {
         });
     };
 
-    handleYes = (id) => {
-        const ftp = {
-            id: id
-        }
-        // in routes/ftp.js
-        fetch('/ftp/delete', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(ftp)
-        }).then(response => response.json())
-            .then(resp => { this.setState({ ftps: resp }) });
+    handleYes = id => {
+        // delete ftp server
+        axios.delete('/ftps/' + id).then(res => res.data)
+            .catch(error => console.log(error));
+
+        this.setState({
+            ftps: this.state.ftps.filter(el => el._id !== id)
+        })
     };
 
     render() {

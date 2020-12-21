@@ -32,7 +32,7 @@ class EditFTP extends React.Component {
         });
     };
 
-    handleChange = (e) => this.setState({ [e.target.id]: e.target.value });
+    handleChange = e => this.setState({ [e.target.id]: e.target.value });
 
     handleSubmit = () => {
         const { id, host, port, pathInputs, pathProcess, pathError, pathOutputs, clientCode, user, password } = this.state
@@ -50,15 +50,10 @@ class EditFTP extends React.Component {
                 user: user,
                 password: password
             }
-            // in routes/ftp.js
-            fetch('/ftp/edit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(theFTP)
-            }).then(response => response.json());
-        } else {
-            alert('Please Enter All Fields to Edit FTP Information');
-        };
+            // edit ftp server
+            axios.post('/ftps/edit/' + id, theFTP).then(res => console.log(res.data))
+                .catch(error => console.log(error));
+        } else alert('Please Enter All Fields to Edit FTP Information');
     };
 
     render() {

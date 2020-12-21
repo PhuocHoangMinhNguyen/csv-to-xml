@@ -16,13 +16,11 @@ class CreateClient extends React.Component {
     handleSubmit = e => {
         const { clientCode, clientName } = this.state
         if (clientCode !== '' && clientName !== '') {
-            // in routes/client.js
-            fetch('/client/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(this.state)
-            }).then(response => response.json())
-                .then(alert("Data Stored in Firestore"));
+            // create new client
+            axios.post('/clients/create', this.state)
+                .then(res => console.log(res.data))
+                .then(() => alert("Data Stored in Firestore"))
+                .catch(error => console.log(error));
         } else {
             alert('Please Enter All Fields');
         };

@@ -8,15 +8,16 @@ import axios from 'axios';
 
 class ClientList extends React.Component {
     state = {
-        clients: null,
+        clients: [],
     };
 
     componentDidMount() {
-        // in routes/client.js
-        axios.get('/client').then(res => this.setState({ clients: res.data }));
+        // get client list
+        axios.get('/clients').then(res => this.setState({ clients: res.data }))
+            .catch(error => console.log(error));;
     };
 
-    handleRemove = (id) => {
+    handleRemove = id => {
         confirmAlert({
             title: 'Confirm to delete',
             message: 'Are you sure you want to delete the client with its mapping?',
@@ -30,25 +31,25 @@ class ClientList extends React.Component {
         });
     };
 
-    handleYes = (id) => {
-        const client = {
-            id: id
-        }
-        // in routes/client.js
-        fetch('/client/delete', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(client)
-        }).then(response => response.json())
-            .then(resp => { this.setState({ clients: resp }) });
+    handleYes = id => {
+        // delete client
+        axios.delete('/clients/' + id).then(res => console.log(res.data))
+            .catch(error => console.log(error));
+
+        this.setState({
+            clients: this.state.clients.filter(el => el.id !== id)
+        });
     };
 
     render() {
-        const { clients } = this.state
         return (
             <div className="section">
-                {clients && clients.map(client => {
-                    return (<ClientSummary client={client} onRemove={() => this.handleRemove(client.id)} />)
+                {this.state.clients.map(client => {
+                    return (
+                        <ClientSummary client={client}
+                            onRemove={() => this.handleRemove(client.id)}
+                            key={client.id} />
+                    )
                 })}
             </div>
         );

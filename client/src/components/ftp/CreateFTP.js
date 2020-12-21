@@ -15,9 +15,9 @@ class CreateFTP extends React.Component {
         password: '',
     };
 
-    handleChange = (e) => this.setState({ [e.target.id]: e.target.value });
+    handleChange = e => this.setState({ [e.target.id]: e.target.value });
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         const { host, port, pathInputs, pathError, pathProcess, pathOutputs, user, password } = this.state
         const { clientCode } = this.props
         if (host !== '' && port !== '' && pathInputs !== '' && pathProcess !== ''
@@ -33,16 +33,11 @@ class CreateFTP extends React.Component {
                 user: user,
                 password: password,
             }
-            // in routes/ftp.js
-            fetch('/ftp/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(created)
-            }).then(response => response.json())
-                .then(alert("Data Stored in Firestore"));
-        } else {
-            alert("Please Enter All Fields");
-        };
+            // create ftp server
+            axios.post('/ftps/create', created).then(res => res.data)
+                .then(() => alert("Data Stored in Firestore"))
+                .catch(error => console.log(error));
+        } else alert("Please Enter All Fields");
     };
 
     render() {

@@ -1,10 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 // Firebase
 const db = require('../firebase/firebase');
 
-// ClientList.js & DropFile.js
-router.get('/', async (req, res) => {
+// get client list
+router.route('/').get(async (req, res) => {
     let defaultResponse = [];
     await db.collection('clients').get().then(querySnapshot => {
         let docs = querySnapshot.docs
@@ -19,37 +18,41 @@ router.get('/', async (req, res) => {
     res.json(defaultResponse);
 });
 
-// CreateClient.js
-router.post('/create', async (req, res) => {
-    await db.collection('clients').doc(req.body.clientCode).set({
+// create client
+router.route('/create').post((req, res) => {
+    db.collection('clients').doc(req.body.clientCode).set({
         clientName: req.body.clientName
-    });
+    }).then(() => res.json('Client added!'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// EditClient.js
-router.post('/edit', async (req, res) => {
-    await db.collection('clients').doc(req.body.id).set({
-        clientName: req.body.clientName
-    }, { merge: true });
-});
-
-// ClientList.js
-router.post('/delete', async (req, res) => {
-    await db.collection('dictionary').doc(req.body.id).delete();
-    await db.collection('default value').doc(req.body.id).delete();
-    await db.collection('clients').doc(req.body.id).delete();
-    let defaultResponse = [];
-    await db.collection('clients').get().then(querySnapshot => {
-        let docs = querySnapshot.docs
-        for (let doc of docs) {
+// find by id
+router.route('/:id').get((req, res) => {
+    let defaultResponse = null;
+    db.collection('clients').doc(req.params.id).get()
+        .then(documentSnapshot => {
             const selectedItem = {
-                id: doc.id,
-                clientName: doc.data().clientName
+                id: documentSnapshot.id,
+                clientName: documentSnapshot.data().clientName
             }
-            defaultResponse.push(selectedItem);
-        }
-    });
+            defaultResponse = selectedItem;
+        });
     res.json(defaultResponse);
+});
+
+// delete client
+router.route('/:id').delete((req, res) => {
+    db.collection('dictionary').doc(req.params.id).delete();
+    db.collection('default value').doc(req.params.id).delete();
+    db.collection('clients').doc(req.params.id).delete();
+});
+
+// edit client
+router.route('/edit/:id').post((req, res) => {
+    db.collection('clients').doc(req.params.id).set({
+        clientName: req.body.clientName
+    }, { merge: true }).then(() => res.json('Client edited!'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;
