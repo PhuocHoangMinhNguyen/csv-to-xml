@@ -14,7 +14,6 @@
     "react-dom": "^18.0.0",
     "react-dropzone": "^11.0.0",
     "react-materialize": "^3.9.5",
-    "react-refresh": "0.8.3",
     "react-router-dom": "^6.0.0",
     "react-router-hash-link": "^2.3.1",
     "react-scripts": "5.0.1",
