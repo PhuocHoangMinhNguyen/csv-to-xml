@@ -1,3 +1,19 @@
 node_modules
 package-lock.json
+pnpm-lock.yaml
 .env
+
+# Firebase service account credentials
+firebase/*.json
+
+# Local FTP working directories
+ftpserver/
+
+# Frontend build output
+client/build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store

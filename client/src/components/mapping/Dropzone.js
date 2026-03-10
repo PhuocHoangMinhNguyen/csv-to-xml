@@ -52,8 +52,13 @@ class Dropzone extends React.Component {
         return (
             <div>
                 <section style={{ justifyContent: "center", display: "flex" }}>
-                    <RDropzone onDrop={this.onDrop} {...this.props}>
-                        {children}
+                    <RDropzone onDrop={this.onDrop}>
+                        {({ getRootProps, getInputProps }) => (
+                            <div {...getRootProps()}>
+                                <input {...getInputProps()} />
+                                {children}
+                            </div>
+                        )}
                     </RDropzone>
                 </section>
                 <div>{this.state.files.map(f => <div key={f.name}>File Name: {f.name} - {f.size} bytes</div>)}</div>

@@ -1,6 +1,5 @@
 // Import dependencies
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 
@@ -60,7 +59,6 @@ csvToXml = (clientCode, host) => {
 
 readFromFTP = async (doc) => {
     const client = new ftp.Client();
-    client.ftp.verbose = false
     try {
         await client.access({
             host: doc.host,
@@ -72,7 +70,7 @@ readFromFTP = async (doc) => {
         console.log(await client.list());
 
         // Download from remote input directory to local input directory
-        // Problem: If downloading lots of file, it will take a lot of time. 
+        // Problem: If downloading lots of file, it will take a lot of time.
         // Meanwhile, client can add some new files while the old files are being downloaded.
         await client.downloadToDir(`ftpserver\\${doc.clientCode}\\${doc.host}\\IN`, doc.pathInputs);
         // Delete input folder.
@@ -100,7 +98,6 @@ readFromFTP = async (doc) => {
 
 uploadtoFTP = async (doc) => {
     const client = new ftp.Client();
-    client.ftp.verbose = false
     try {
         await client.access({
             host: doc.host,
@@ -118,7 +115,7 @@ uploadtoFTP = async (doc) => {
 
         // Clear local ftpserver directory
         const thePath = path.join(__dirname, `ftpserver\\${doc.clientCode}\\${doc.host}`);
-        rimraf(thePath, () => console.log('Deleted Local Host Address Directory'));
+        rimraf(thePath).then(() => console.log('Deleted Local Host Address Directory'));
     }
     catch (err) { console.log(err) }
     client.close();
@@ -156,9 +153,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Configure the bodyParser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Configure the body parsing middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Configure the CORs middleware
 app.use(cors());
@@ -174,13 +171,13 @@ app.use('/defaultvalue', defaultRouter);
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
     app.use(express.static(path.join(__dirname, 'client/build')));
 
-    app.get('*', function (req, res) {
+    app.get('/{*any}', function (req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
 };
 
 // Catch any bad requests
-app.get('*', (req, res) => {
+app.get('/{*any}', (req, res) => {
     res.status(200).json({ msg: 'Catch All' });
 });
 

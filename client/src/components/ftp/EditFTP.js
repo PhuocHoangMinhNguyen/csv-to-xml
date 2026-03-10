@@ -1,7 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
+
+function withRouter(Component) {
+    return function ComponentWithRouter(props) {
+        const params = useParams();
+        return <Component {...props} match={{ params }} />;
+    };
+}
 
 class EditFTP extends React.Component {
     state = {
@@ -115,4 +122,4 @@ class EditFTP extends React.Component {
     };
 };
 
-export default EditFTP;
+export default withRouter(EditFTP);

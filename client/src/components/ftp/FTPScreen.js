@@ -6,7 +6,15 @@ import FTPSummary from './FTPSummary';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { CSSTransition } from 'react-transition-group';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
+function withRouter(Component) {
+    return function ComponentWithRouter(props) {
+        const params = useParams();
+        return <Component {...props} match={{ params }} />;
+    };
+}
 
 class FTPScreen extends React.Component {
     state = {
@@ -81,4 +89,4 @@ class FTPScreen extends React.Component {
     };
 };
 
-export default FTPScreen;
+export default withRouter(FTPScreen);

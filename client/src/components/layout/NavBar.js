@@ -14,14 +14,14 @@ class NavBar extends React.Component {
                             <img style={{ height: 60 }} src={magellanLogo} />
                         </Link>
                         <ul className="right">
-                            <li><NavLink to='/notification' style={{ color: "black" }}
-                                activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Notifications</NavLink></li>
-                            <li><NavLink to='/mapping' style={{ color: "black" }}
-                                activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Mapping</NavLink></li>
-                            <li><NavLink to='/client' style={{ color: "black" }}
-                                activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Clients</NavLink></li>
-                            <li><NavLink to='/admin' style={{ color: "black" }}
-                                activeStyle={{ backgroundColor: '#0078bf', color: "white" }}>Admins</NavLink></li>
+                            <li><NavLink to='/notification'
+                                style={({ isActive }) => isActive ? { backgroundColor: '#0078bf', color: "white" } : { color: "black" }}>Notifications</NavLink></li>
+                            <li><NavLink to='/mapping'
+                                style={({ isActive }) => isActive ? { backgroundColor: '#0078bf', color: "white" } : { color: "black" }}>Mapping</NavLink></li>
+                            <li><NavLink to='/client'
+                                style={({ isActive }) => isActive ? { backgroundColor: '#0078bf', color: "white" } : { color: "black" }}>Clients</NavLink></li>
+                            <li><NavLink to='/admin'
+                                style={({ isActive }) => isActive ? { backgroundColor: '#0078bf', color: "white" } : { color: "black" }}>Admins</NavLink></li>
                         </ul>
                     </div>
                 </nav>

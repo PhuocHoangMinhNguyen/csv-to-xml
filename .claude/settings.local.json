@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm outdated:*)",
+      "Bash(cd /d/Programming/csv-to-xml && npm install 2>&1 | tail -20)",
+      "Bash(npm install:*)",
+      "Bash(pnpm --version 2>/dev/null && echo \"pnpm available\" || echo \"pnpm not found\")",
+      "Bash(pnpm install:*)"
+    ]
+  }
+}

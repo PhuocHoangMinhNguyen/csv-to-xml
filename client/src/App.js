@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 // Navigation Bar
 import NavBar from "./components/layout/NavBar";
 // Notifications
@@ -25,17 +25,17 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="App">
           <NavBar />
-          <Switch>
-            <Route exact path='/' component={Dashboard} />
-            <Route path="/notification" component={NotificationScreen} />
-            <Route path="/mapping-drop-file" component={DropFile} />
-            <Route path="/mapping" component={Mapping} />
-            <Route path="/client" component={ClientScreen} />
-            <Route path="/client-edit/:id" component={EditClient} />
-            <Route path="/ftp/:id" component={FTPScreen} />
-            <Route path="/ftp-edit/:id" component={EditFTP} />
-            <Route path="/admin" component={Admin} />
-          </Switch>
+          <Routes>
+            <Route path='/' element={<Dashboard />} />
+            <Route path="/notification" element={<NotificationScreen />} />
+            <Route path="/mapping-drop-file" element={<DropFile />} />
+            <Route path="/mapping" element={<Mapping />} />
+            <Route path="/client" element={<ClientScreen />} />
+            <Route path="/client-edit/:id" element={<EditClient />} />
+            <Route path="/ftp/:id" element={<FTPScreen />} />
+            <Route path="/ftp-edit/:id" element={<EditFTP />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
         </div>
       </BrowserRouter>
     );
