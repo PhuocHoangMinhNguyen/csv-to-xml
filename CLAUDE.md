@@ -6,27 +6,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Development (both client and server):**
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 **Backend only (with nodemon):**
 ```bash
-npm run server
+pnpm run server
 ```
 
 **Frontend only:**
 ```bash
-npm run client
+pnpm run client
 ```
 
 **Build frontend for production:**
 ```bash
-npm run client:build
+pnpm run client:build
 ```
 
 **Frontend tests:**
 ```bash
-cd client && npm test
+cd client && pnpm test
 ```
 
 ## Architecture
@@ -67,7 +67,7 @@ Defines the fixed ordered lists of XML fields: `header` (order-level fields), `l
 
 The app is configured for production deployment on Render with no code changes required.
 
-- **Build Command**: `npm install && npm run client:build`
+- **Build Command**: `pnpm install && pnpm run client:build`
 - **Start Command**: `node server.js`
 - **Environment Variable**: `NODE_ENV=production`
 - **Tier**: Paid ($7/month) required — free tier spins down after 15 min of inactivity, which kills the cron job

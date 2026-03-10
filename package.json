@@ -28,10 +28,9 @@
     "csvtojson": "^2.0.10",
     "debug": "^4.3.1",
     "express": "^5.0.0",
-    "firebase-admin": "^10.0.0",
+    "firebase-admin": "^13.0.0",
     "fs": "0.0.1-security",
     "http-errors": "^2.0.0",
-    "jade": "^1.11.0",
     "jstoxml": "^2.0.3",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
@@ -42,5 +41,11 @@
     "path": "^0.12.7",
     "react-modal": "^3.12.1",
     "rimraf": "^5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "protobufjs": ">=6.11.4",
+      "nodemailer": ">=7.0.11"
+    }
   }
 }
