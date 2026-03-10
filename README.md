@@ -29,7 +29,7 @@ Magellan CSV to XML System is a system designed for Magellan Logistics Company t
 - Adding Admin Emails. Whenever an error occurs, an email with the error details will be sent to these emails.
 
 ## Installation
-You can gain access to the database using this URL: https://csv-to-xml.herokuapp.com/
+Production URL: https://csv-to-xml-5nvf.onrender.com
 
 ## Author
 **Phuoc Hoang Minh Nguyen** - *Full-stack Developer* - [PhuocHoangMinhNguyen](https://github.com/PhuocHoangMinhNguyen)

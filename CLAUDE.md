@@ -63,6 +63,18 @@ React class-component app (React 17) using Materialize CSS. Proxied to `http://l
 ### Magellan XML schema (`data/magellanField.js`)
 Defines the fixed ordered lists of XML fields: `header` (order-level fields), `line` (order-line-level fields), and `mandatoryHeader` (required fields: `OrderAction`, `OrderNumber`, `ClientCode`, `SupplierCode`, `DirectOrTranship`, `TransportMode`). Field `id` values determine position in the output XML.
 
+## Deployment (Render)
+
+The app is configured for production deployment on Render with no code changes required.
+
+- **Build Command**: `npm install && npm run client:build`
+- **Start Command**: `node server.js`
+- **Environment Variable**: `NODE_ENV=production`
+- **Tier**: Paid ($7/month) required — free tier spins down after 15 min of inactivity, which kills the cron job
+- **Firebase credentials**: Add the service account JSON content as an environment variable (the file is gitignored)
+- `client/build/` is gitignored and regenerated at build time by Render
+- **Production URL**: https://csv-to-xml-5nvf.onrender.com
+
 ### Special XML fields
 - `OrderReference` / `OrderLineReference`: stored as arrays `[referenceName, referenceValue]` and nested differently in the XML output
 - `DeliveryAddressCode` / `LineDeliveryAddress`: wrapped in their own XML container elements
