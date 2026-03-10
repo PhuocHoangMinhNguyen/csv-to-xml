@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Icon } from 'react-materialize';
 
 class FTPSummary extends React.Component {
     render() {
@@ -11,11 +10,11 @@ class FTPSummary extends React.Component {
             <div className="card" style={{ borderRadius: 10 }}>
                 <div className="card-content">
                     <div className="right" onClick={onRemove} style={{ color: "#0078bf" }}>
-                        <Icon>delete</Icon>
+                        <i className="material-icons">delete</i>
                     </div>
                     <Link className="right" style={{ color: "#0078bf" }}
                         to={'/ftp-edit/' + ftp.id}>
-                        <Icon>edit</Icon>
+                        <i className="material-icons">edit</i>
                     </Link>
                     <h5>Host Address: {ftp.host}</h5>
                     <div className="row">

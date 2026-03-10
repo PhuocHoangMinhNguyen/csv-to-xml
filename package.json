@@ -5,10 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client && npm start",
+    "client": "cd client && pnpm start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
-    "client:build": "cd client && npm install --legacy-peer-deps && npm run build"
+    "dev": "concurrently --kill-others-on-fail \"pnpm run client\" \"pnpm run server\"",
+    "client:build": "cd client && pnpm install && pnpm run build"
   },
   "repository": {
     "type": "git",
@@ -21,31 +21,25 @@
   },
   "homepage": "https://github.com/PhuocHoangMinhNguyen/csv-to-xml#readme",
   "dependencies": {
-    "basic-ftp": "^5.0.0",
-    "concurrently": "^9.0.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "csvtojson": "^2.0.10",
-    "debug": "^4.3.1",
-    "express": "^5.0.0",
-    "firebase-admin": "^13.0.0",
+    "basic-ftp": "^5.2.0",
+    "concurrently": "^9.2.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "csvtojson": "^2.0.14",
+    "debug": "^4.4.3",
+    "express": "^5.2.1",
+    "firebase-admin": "^13.7.0",
     "fs": "0.0.1-security",
-    "http-errors": "^2.0.0",
-    "jstoxml": "^2.0.3",
-    "moment": "^2.29.1",
-    "morgan": "^1.10.0",
-    "node-cron": "^3.0.0",
-    "nodejs-nodemailer-outlook": "^1.2.3",
-    "nodemailer": "^7.0.0",
-    "nodemon": "^3.0.0",
+    "http-errors": "^2.0.1",
+    "jstoxml": "^7.1.0",
+    "moment": "^2.30.1",
+    "morgan": "^1.10.1",
+    "node-cron": "^4.2.1",
+    "nodejs-nodemailer-outlook": "^1.2.4",
+    "nodemailer": "^8.0.2",
+    "nodemon": "^3.1.14",
     "path": "^0.12.7",
-    "react-modal": "^3.12.1",
-    "rimraf": "^5.0.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "protobufjs": ">=6.11.4",
-      "nodemailer": ">=7.0.11"
-    }
+    "react-modal": "^3.16.3",
+    "rimraf": "^6.1.3"
   }
 }
