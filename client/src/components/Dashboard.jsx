@@ -18,8 +18,7 @@ import serverImage from "../images/FTPServers.PNG";
 import notiImage from "../images/Notifications.PNG";
 import savedImage from "../images/SavedMapping.PNG";
 
-var Scroll = require('react-scroll');
-var scroll = Scroll.animateScroll;
+import { animateScroll as scroll } from 'react-scroll';
 
 class Dashboard extends React.Component {
     handleScroll = (e) => {

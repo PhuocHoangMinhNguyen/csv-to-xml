@@ -5,7 +5,26 @@
       "Bash(cd /d/Programming/csv-to-xml && npm install 2>&1 | tail -20)",
       "Bash(npm install:*)",
       "Bash(pnpm --version 2>/dev/null && echo \"pnpm available\" || echo \"pnpm not found\")",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(git add:*)",
+      "Bash(cd D:/Programming/csv-to-xml && npm audit 2>&1)",
+      "Bash(cd D:/Programming/csv-to-xml && npm i --package-lock-only 2>&1 | tail -5 && npm audit 2>&1)",
+      "Bash(pnpm audit:*)",
+      "Bash(npm show:*)",
+      "Bash(pnpm list:*)",
+      "Bash(pnpm why:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(pnpm update:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm approve-builds:*)",
+      "Bash(pnpm run build:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(while read f)",
+      "Bash(do git mv \"$f\" \"$f%.js.jsx\")",
+      "Bash(done)",
+      "Bash(pnpm remove:*)"
     ]
   }
 }

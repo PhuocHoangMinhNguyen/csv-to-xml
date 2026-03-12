@@ -2,7 +2,7 @@
 
 import React from 'react';
 import RDropzone from 'react-dropzone';
-const csv = require('csvtojson');
+import Papa from 'papaparse';
 
 class Dropzone extends React.Component {
     state = {
@@ -20,24 +20,18 @@ class Dropzone extends React.Component {
             reader.onload = () => {
                 const fileAsBinaryString = reader.result;
 
-                csv({ noheader: true, output: "json" })
-                    .fromString(fileAsBinaryString)
-                    .then(csvRows => {
-                        const toJson = []
-                        csvRows.forEach((aCsvRow, i) => {
-                            if (i !== 0) {
-                                const builtObject = {}
-                                Object.keys(aCsvRow).forEach(aKey => {
-                                    const valueToAddInBuiltObject = aCsvRow[aKey].replace(/\s+/g, '');
-                                    const keyToAddInBuiltObject = csvRows[0][aKey].replace(/\s+/g, '');
-                                    builtObject[keyToAddInBuiltObject] = valueToAddInBuiltObject;
-                                })
-                                toJson.push(builtObject);
-                            }
-                        });
-                        const { getjson } = this.props;
-                        getjson(toJson);
-                    })
+                const { data: csvRows } = Papa.parse(fileAsBinaryString, { header: false, skipEmptyLines: true });
+                const headers = csvRows[0].map(h => h.replace(/\s+/g, ''));
+                const toJson = [];
+                for (let i = 1; i < csvRows.length; i++) {
+                    const builtObject = {};
+                    csvRows[i].forEach((value, j) => {
+                        builtObject[headers[j]] = value.replace(/\s+/g, '');
+                    });
+                    toJson.push(builtObject);
+                }
+                const { getjson } = this.props;
+                getjson(toJson);
             };
 
             reader.onabort = () => console.log('file reading was aborted');

@@ -8,8 +8,8 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.13.6",
-    "csvtojson": "^2.0.14",
     "materialize-css": "^1.0.0",
+    "papaparse": "^5.5.3",
     "react": "^19.2.4",
     "react-confirm-alert": "^3.0.6",
     "react-dom": "^19.2.4",
@@ -31,7 +31,9 @@
     "test": "echo \"No tests\""
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "browserslist": {
     "production": [
