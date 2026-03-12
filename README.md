@@ -9,7 +9,7 @@ Magellan CSV to XML System is a system designed for Magellan Logistics Company t
 5. [Author](#author)
 
 ## Screenshots
-<img src="https://github.com/PhuocHoangMinhNguyen/csv-to-xml/tree/master/screenshots/Home.PNG" width="500" />
+<img src="https://github.com/PhuocHoangMinhNguyen/csv-to-xml/blob/master/screenshots/Home.PNG" width="500" />
 <img src="https://github.com/PhuocHoangMinhNguyen/csv-to-xml/tree/master/screenshots/Notifications.PNG" width="500" />
 <img src="https://github.com/PhuocHoangMinhNguyen/csv-to-xml/tree/master/screenshots/SavedMapping.PNG" width="500" />
 <img src="https://github.com/PhuocHoangMinhNguyen/csv-to-xml/tree/master/screenshots/FTPServers.PNG" width="500" />
