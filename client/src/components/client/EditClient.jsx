@@ -11,6 +11,7 @@ function withRouter(Component) {
 }
 
 class EditClient extends React.Component {
+    nodeRef = React.createRef();
     state = {
         id: '',
         clientName: ''
@@ -45,8 +46,8 @@ class EditClient extends React.Component {
     render() {
         const { id } = this.state
         return (
-            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                <div className="container section">
+            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                <div className="container section" ref={this.nodeRef}>
                     <div className="card" style={{ borderRadius: 10, height: 200 }}>
                         <div className="card-content">
                             <form className="white">

@@ -17,6 +17,7 @@ function withRouter(Component) {
 }
 
 class FTPScreen extends React.Component {
+    nodeRef = React.createRef();
     state = {
         clientCode: '',
         ftps: [],
@@ -64,8 +65,8 @@ class FTPScreen extends React.Component {
     render() {
         const { clientCode, ftps } = this.state
         return (
-            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                <div className="row">
+            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                <div className="row" ref={this.nodeRef}>
                     <div className="col s1"></div>
                     <div className="col s5">
                         <div className="section">

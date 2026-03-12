@@ -6,6 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 
 class Dictionary extends React.Component {
+    nodeRef = React.createRef();
     state = {
         existDictionary: [],
         existDefaultValue: [],
@@ -36,18 +37,18 @@ class Dictionary extends React.Component {
         return (
             <div className="section">
                 <MappingSideBar />
-                <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                    <div className="row">
+                <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                    <div className="row" ref={this.nodeRef}>
                         <div className="col s2"></div>
                         <div className="col s9">
                             <div style={{ marginTop: 10, marginBottom: 50, padding: 12, borderRadius: 10 }} className="section white">
                                 <div className="input-field">
-                                    <select className="browser-default" style={{ width: 250, backgroundColor: '#DDD' }} onChange={(e) => {
+                                    <select className="browser-default" style={{ width: 250, backgroundColor: '#DDD' }} defaultValue="" onChange={(e) => {
                                         this.dicdef(e.target.value);
                                     }}>
-                                        <option value="" disabled selected>Choose client code to view: </option>
+                                        <option value="" disabled>Choose client code to view: </option>
                                         {clients.map(client => {
-                                            return <option value={client.id}>Client {client.id}</option>
+                                            return <option key={client.id} value={client.id}>Client {client.id}</option>
                                         })}
                                     </select>
                                 </div>
@@ -67,9 +68,9 @@ class Dictionary extends React.Component {
                                             <div className="pink-text col s3 zone">Customer Value</div>
                                             <div className="pink-text col s3 zone">Magellan Value</div>
                                         </div>
-                                        {existDictionary.map(item => {
+                                        {existDictionary.map((item, i) => {
                                             return (
-                                                <div className="row">
+                                                <div key={i} className="row">
                                                     <div className="col s3 zone">{item.customerField}</div>
                                                     <div className="col s3 zone">{item.magellanField}</div>
                                                     <div className="col s3 zone">{item.customerValue}</div>
@@ -83,9 +84,9 @@ class Dictionary extends React.Component {
                                             <div className="pink-text col s6 zone">Magellan Field</div>
                                             <div className="pink-text col s6 zone">Default Value</div>
                                         </div>
-                                        {existDefaultValue.map(item => {
+                                        {existDefaultValue.map((item, i) => {
                                             return (
-                                                <div className="row">
+                                                <div key={i} className="row">
                                                     <div className="col s6 zone">{item.magellanField}</div>
                                                     <div className="col s6 zone">{item.defaultValue}</div>
                                                 </div>

@@ -45,7 +45,7 @@ class AdminList extends React.Component {
         return (
             <div className="section">
                 {admins.map(admin => {
-                    return <AdminSummary admin={admin} onRemove={() => this.handleRemove(admin.id)} />
+                    return <AdminSummary key={admin.id} admin={admin} onRemove={() => this.handleRemove(admin.id)} />
                 })}
             </div>
         );

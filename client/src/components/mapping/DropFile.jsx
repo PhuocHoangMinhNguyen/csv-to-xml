@@ -7,6 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 
 class DropFile extends React.Component {
+    nodeRef = React.createRef();
     state = {
         mappingResult: [],
         clients: null,
@@ -76,18 +77,18 @@ class DropFile extends React.Component {
         return (
             <div className="section">
                 <MappingSideBar />
-                <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                    <div className="row">
+                <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                    <div className="row" ref={this.nodeRef}>
                         <div className="col s2"></div>
                         <div className="col s9">
                             <div className="section white" style={{ marginTop: 10, marginBottom: 50, padding: 12, borderRadius: 10 }}>
                                 <div className="input-field">
-                                    <select className="browser-default" style={{ width: 250, backgroundColor: '#DDD' }} onChange={(e) => {
+                                    <select className="browser-default" style={{ width: 250, backgroundColor: '#DDD' }} defaultValue="" onChange={(e) => {
                                         this.setState({ chosenClient: e.target.value })
                                     }}>
-                                        <option value="" disabled selected>Choose client code to view: </option>
+                                        <option value="" disabled>Choose client code to view: </option>
                                         {clients && clients.map(client => {
-                                            return <option value={client.id}>Client {client.id}</option>
+                                            return <option key={client.id} value={client.id}>Client {client.id}</option>
                                         })}
                                     </select>
                                 </div>
@@ -109,10 +110,10 @@ class DropFile extends React.Component {
                                     <div className="pink-text col s3 zone">Magellan Default Values</div>
                                 </div>
                                 {mappingResult ? (
-                                    mappingResult.map(mappingSmall => <div className="row">{
+                                    mappingResult.map((mappingSmall, i) => <div key={i} className="row">{
                                         Object.keys(mappingSmall).map(key => {
                                             return (
-                                                <div className="col s3 zone">{mappingSmall[key]}</div>
+                                                <div key={key} className="col s3 zone">{mappingSmall[key]}</div>
                                             )
                                         })
                                     }</div>

@@ -6,6 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 
 class NotificationScreen extends React.Component {
+    nodeRef = React.createRef();
     state = {
         notifications: [],
         currentNotifications: [],
@@ -85,8 +86,8 @@ class NotificationScreen extends React.Component {
     render() {
         const { currentNotifications, clients } = this.state;
         return (
-            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                <div className="row">
+            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                <div className="row" ref={this.nodeRef}>
                     <div className="col s1"></div>
                     <div className="col s7">
                         <NotificationList notifications={currentNotifications} />
@@ -97,8 +98,8 @@ class NotificationScreen extends React.Component {
                                 <div className="card-content">
                                     <h5>Filter Options</h5>
                                     <div className="input-field">
-                                        <select className="browser-default" onChange={(e) => this.filterStatus(e)}>
-                                            <option value='' selected>Status</option>
+                                        <select className="browser-default" defaultValue='' onChange={(e) => this.filterStatus(e)}>
+                                            <option value=''>Status</option>
                                             <option value='Success'>Success</option>
                                             <option value='Some mapping fields cannot be found in the input file'>Some mapping fields cannot be found in the input file</option>
                                             <option value='Mandatory fields missing'>Mandatory fields missing</option>
@@ -106,10 +107,10 @@ class NotificationScreen extends React.Component {
                                         </select>
                                     </div>
                                     <div className="input-field">
-                                        <select className="browser-default" onChange={(e) => this.filterClient(e)}>
-                                            <option value='' selected>Client Code</option>
+                                        <select className="browser-default" defaultValue='' onChange={(e) => this.filterClient(e)}>
+                                            <option value=''>Client Code</option>
                                             {clients.map(client => {
-                                                return <option value={client.id}>Client {client.id}</option>
+                                                return <option key={client.id} value={client.id}>Client {client.id}</option>
                                             })}
                                         </select>
                                     </div>

@@ -7,8 +7,8 @@ class MappingSideBar extends React.Component {
     render() {
         return (
             <ul id="slide-out" className="sidenav sidenav-fixed">
-                <li><NavLink to='/mapping' activeStyle={{ backgroundColor: '#DDD' }}>Saved Mapping</NavLink></li>
-                <li><NavLink to='/mapping-drop-file' activeStyle={{ backgroundColor: '#DDD' }}>Create Mapping</NavLink></li>
+                <li><NavLink to='/mapping' style={({ isActive }) => isActive ? { backgroundColor: '#DDD' } : {}}>Saved Mapping</NavLink></li>
+                <li><NavLink to='/mapping-drop-file' style={({ isActive }) => isActive ? { backgroundColor: '#DDD' } : {}}>Create Mapping</NavLink></li>
             </ul>
         );
     };

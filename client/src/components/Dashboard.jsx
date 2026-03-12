@@ -21,14 +21,15 @@ import savedImage from "../images/SavedMapping.PNG";
 import { animateScroll as scroll } from 'react-scroll';
 
 class Dashboard extends React.Component {
+    nodeRef = React.createRef();
     handleScroll = (e) => {
         scroll.scrollTo(e.target.value)
     };
 
     render() {
         return (
-            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                <div className="container section">
+            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                <div className="container section" ref={this.nodeRef}>
                     <div className="card" style={{ borderRadius: 10 }}>
                         <div className="card-content">
                             <h3>MAGELLAN CSV TO XML SYSTEM</h3>

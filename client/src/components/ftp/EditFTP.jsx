@@ -11,6 +11,7 @@ function withRouter(Component) {
 }
 
 class EditFTP extends React.Component {
+    nodeRef = React.createRef();
     state = {
         id: '',
         ftp: {
@@ -71,8 +72,8 @@ class EditFTP extends React.Component {
     render() {
         const { clientCode } = this.state.ftp
         return (
-            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
-                <div className="container section">
+            <CSSTransition in={true} appear={true} timeout={1000} classNames="fade" nodeRef={this.nodeRef}>
+                <div className="container section" ref={this.nodeRef}>
                     <div className="card" style={{ borderRadius: 10, height: 700 }}>
                         <div className="card-content">
                             <form className="white">
